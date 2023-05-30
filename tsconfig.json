@@ -21,6 +21,9 @@
       "code-processing": [
         "dist/code-processing"
       ],
+      "levels": [
+        "dist/levels"
+      ],
       "storage": [
         "dist/storage"
       ]
