@@ -18,6 +18,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "paths": {
+      "code-processing": [
+        "dist/code-processing"
+      ],
       "storage": [
         "dist/storage"
       ]
