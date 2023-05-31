@@ -19,6 +19,9 @@
     "importHelpers": true,
     "target": "ES2022",
     "paths": {
+      "code-editor": [
+        "dist/code-editor"
+      ],
       "code-processing": [
         "dist/code-processing"
       ],
