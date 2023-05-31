@@ -4,11 +4,13 @@
   "peerDependencies": {
     "@angular/common": "^15.2.0",
     "@angular/core": "^15.2.0",
-    "antlr4ts": "^0.5.0-alpha.4"
+    "antlr4ts": "^0.5.0-alpha.4",
+    "assert": "^2.0.0"
   },
   "devDependencies": {
+    "antlr4ts-cli": "^0.5.0-alpha.4",
     "antlr4ts": "^0.5.0-alpha.4",
-    "antlr4ts-cli": "^0.5.0-alpha.4"
+    "assert": "^2.0.0"
   },
   "dependencies": {
     "tslib": "^2.3.0"
@@ -16,5 +18,10 @@
   "sideEffects": false,
   "scripts": {
     "antlr4": "antlr4ts -visitor antlr4/Aris.g4 -o src/lib/generated"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }
