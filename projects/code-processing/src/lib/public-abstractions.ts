@@ -54,7 +54,7 @@ type RunInfo = {
   runScore: number
 }
 
-type CompilationError = {
+export type CompilationError = {
   lineNr: number
   fromCharIndex: number
   toCharIndex: number
