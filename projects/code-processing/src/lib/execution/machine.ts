@@ -30,7 +30,7 @@ export class Machine {
   input: number[]
   expectedOut: number[]
   memorySlots: (undefined | number)[]
-  machineGUIActions: ProtectedArray<MachineGUIAction>
+  machineGUIActions: MachineGUIAction[]
   machineState: MachineState
 
   constructor(level: Level) {
@@ -41,7 +41,7 @@ export class Machine {
     for (let i = 0; i < level.nrOfMemorySlots; i++) {
       this.memorySlots.push(undefined)
     }
-    this.machineGUIActions = new ProtectedArray<MachineGUIAction>()
+    this.machineGUIActions = []
     this.machineState = MachineState.RUNNING
   }
 
@@ -51,12 +51,13 @@ export class Machine {
 
   createMachineResult(): MachineResult {
     return {
-      machineGUIActions: this.machineGUIActions.get(),
+      machineGUIActions: this.machineGUIActions,
       finishedWithError: this.machineState == MachineState.FINISHED_WITH_ERROR
     }
   }
 
   getValueOfMemorySlot(i: number): number {
+    this.throwErrorIfMachineStopped()
     const value = this.memorySlots[i]
     if (value == undefined) {
       this.error('Trying to read memory slot ' + i + ', but it is empty')
@@ -66,10 +67,12 @@ export class Machine {
   }
 
   getValueOfInputElement(): number {
+    this.throwErrorIfMachineStopped()
     return this.input[0]
   }
 
   moveInputToOutput(editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.input.length == 0) {
       this.error('Cannot read from input anymore')
       return
@@ -93,6 +96,7 @@ export class Machine {
   }
 
   moveInputToMemorySlot(i: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.input.length == 0) {
       this.error('Cannot read from input anymore')
       return
@@ -109,6 +113,7 @@ export class Machine {
   }
 
   moveMemorySlotToOutput(i: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[i] == undefined) {
       this.error('No value to move to output')
       return
@@ -137,6 +142,7 @@ export class Machine {
   }
 
   moveMemorySlotToMemorySlot(from: number, to: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[from] == undefined) {
       this.error('No value to move to memory slot ' + to)
       return
@@ -160,6 +166,7 @@ export class Machine {
   }
 
   copyMemorySlotToMemorySlot(from: number, to: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[from] == undefined) {
       this.error('No value to move to memory slot ' + to)
       return
@@ -176,6 +183,7 @@ export class Machine {
   }
 
   copyMemorySlotToOutput(from: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[from] == undefined) {
       this.error('Memory slot ' + from + ' does not exist')
       return
@@ -199,6 +207,7 @@ export class Machine {
   }
 
   incrementMemorySlot(i: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[i] == undefined) {
       this.error('Memory slot ' + i + ' does not exist')
       return
@@ -217,6 +226,7 @@ export class Machine {
   }
 
   decrementMemorySlot(i: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[i] == undefined) {
       this.error('Memory slot ' + i + ' does not exist')
       return
@@ -235,14 +245,20 @@ export class Machine {
   }
 
   checkWinningCondition() {
-    if (this.expectedOut.length != 0) {
-      this.error('More output is expected!')
-    } else {
-      this.finished()
+    // This method is called after a full run is completed, so we should be able to call this at any point in time
+    // without throwing an error. To prevent adding multiple finish or error clauses, we only execute the content if the
+    // machine is running.
+    if (this.isRunning()) {
+      if (this.expectedOut.length != 0) {
+        this.error('More output is expected!')
+      } else {
+        this.finished()
+      }
     }
   }
 
   addMemorySlotToMemorySlot(from: number, to: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[from] == undefined || this.memorySlots[to] == undefined) {
       this.error('One of the two memory slots does not exist: ' + from + ", " + to)
       return
@@ -260,6 +276,7 @@ export class Machine {
   }
 
   subtractMemorySlotFromMemorySlot(valueToSubtract: number, toBeSubtractedFrom: number, editorLine: number) {
+    this.throwErrorIfMachineStopped()
     if (this.memorySlots[valueToSubtract] == undefined || this.memorySlots[toBeSubtractedFrom] == undefined) {
       this.error('One of the two memory slots does not exist: ' + valueToSubtract + ", " + toBeSubtractedFrom)
       return
@@ -282,44 +299,20 @@ export class Machine {
   }
 
   error(message: string) {
+    this.throwErrorIfMachineStopped()
     this.machineGUIActions.push({error: message})
-    if (this.machineState == MachineState.RUNNING) {
-      this.machineState = MachineState.FINISHED_WITH_ERROR
-    }
-    this.machineGUIActions.enableProtect()
+    this.machineState = MachineState.FINISHED_WITH_ERROR
   }
 
   private finished() {
+    this.throwErrorIfMachineStopped()
     this.machineGUIActions.push({finished: true})
-    if (this.machineState == MachineState.RUNNING) {
-      this.machineState = MachineState.FINISHED
+    this.machineState = MachineState.FINISHED
+  }
+
+  private throwErrorIfMachineStopped() {
+    if (!this.isRunning()) {
+      throw new Error('Cannot execute this command after execution is done')
     }
-    this.machineGUIActions.enableProtect()
-  }
-}
-
-/**
- * Encapsulates an array that protects it from adding new elements after `enableProtect` is called. This class is used to
- * protect the code from adding new actions after the actions are finished (either successfully or with an error).
- * This is a sure-way to protect the array with little modifications to the code.
- */
-class ProtectedArray<T> {
-  array: T[] = []
-  protect = false
-
-  push(...items: T[]): number {
-    // Do not throw an error if the array is protected, so the program runs smoothly.
-    if (this.protect) {
-      return 0
-    }
-    return this.array.push(...items)
-  }
-
-  enableProtect() {
-    this.protect = true
-  }
-
-  get(): T[] {
-    return this.array;
   }
 }

@@ -70,195 +70,141 @@ export class ProgramVisitor implements ArisVisitor<void> {
   }
 
   visitMove(ctx: MoveContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    const editorLine = ctx.start.line;
-    if (ctx.INPUT() != undefined && ctx.OUTPUT() != undefined) {
-      this.machine.moveInputToOutput(editorLine)
-    } else if (ctx.INPUT() != undefined) {
-      const memorySlot = +ctx.MEMORY_SLOT(0).text
-      this.machine.moveInputToMemorySlot(memorySlot, editorLine)
-    } else if (ctx.OUTPUT() != undefined) {
-      const memorySlot = +ctx.MEMORY_SLOT(0).text
-      this.machine.moveMemorySlotToOutput(memorySlot, editorLine)
-    } else {
-      const from = +ctx.MEMORY_SLOT(0).text
-      const to = +ctx.MEMORY_SLOT(1).text
-      this.machine.moveMemorySlotToMemorySlot(from, to, editorLine)
-    }
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      if (ctx.INPUT() != undefined && ctx.OUTPUT() != undefined) {
+        this.machine.moveInputToOutput(editorLine)
+      } else if (ctx.INPUT() != undefined) {
+        const memorySlot = +ctx.MEMORY_SLOT(0).text
+        this.machine.moveInputToMemorySlot(memorySlot, editorLine)
+      } else if (ctx.OUTPUT() != undefined) {
+        const memorySlot = +ctx.MEMORY_SLOT(0).text
+        this.machine.moveMemorySlotToOutput(memorySlot, editorLine)
+      } else {
+        const from = +ctx.MEMORY_SLOT(0).text
+        const to = +ctx.MEMORY_SLOT(1).text
+        this.machine.moveMemorySlotToMemorySlot(from, to, editorLine)
+      }
+    })
   }
 
   visitCopy(ctx: CopyContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      const from = +ctx.MEMORY_SLOT(0)
 
-    const editorLine = ctx.start.line;
-    const from = +ctx.MEMORY_SLOT(0)
-
-    if (ctx.OUTPUT() != undefined) {
-      this.machine.copyMemorySlotToOutput(from, editorLine)
-    } else {
-      const to = +ctx.MEMORY_SLOT(1)
-      this.machine.copyMemorySlotToMemorySlot(from, to, editorLine)
-    }
+      if (ctx.OUTPUT() != undefined) {
+        this.machine.copyMemorySlotToOutput(from, editorLine)
+      } else {
+        const to = +ctx.MEMORY_SLOT(1)
+        this.machine.copyMemorySlotToMemorySlot(from, to, editorLine)
+      }
+    })
   }
 
   visitAdd(ctx: AddContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    const editorLine = ctx.start.line;
-    const from = +ctx.MEMORY_SLOT(0)
-    const to = +ctx.MEMORY_SLOT(1)
-    this.machine.addMemorySlotToMemorySlot(from, to, editorLine)
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      const from = +ctx.MEMORY_SLOT(0)
+      const to = +ctx.MEMORY_SLOT(1)
+      this.machine.addMemorySlotToMemorySlot(from, to, editorLine)
+    })
   }
 
   visitSubtract(ctx: SubtractContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    const editorLine = ctx.start.line;
-    const from = +ctx.MEMORY_SLOT(0)
-    const to = +ctx.MEMORY_SLOT(1)
-    this.machine.subtractMemorySlotFromMemorySlot(from, to, editorLine)
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      const from = +ctx.MEMORY_SLOT(0)
+      const to = +ctx.MEMORY_SLOT(1)
+      this.machine.subtractMemorySlotFromMemorySlot(from, to, editorLine)
+    })
   }
 
   visitIncrement(ctx: IncrementContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    const editorLine = ctx.start.line;
-    this.machine.incrementMemorySlot(+ctx.MEMORY_SLOT(), editorLine)
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      this.machine.incrementMemorySlot(+ctx.MEMORY_SLOT(), editorLine)
+    })
   }
 
   visitDecrement(ctx: DecrementContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    const editorLine = ctx.start.line;
-    this.machine.decrementMemorySlot(+ctx.MEMORY_SLOT(), editorLine)
+    this.templateMethod(() => {
+      const editorLine = ctx.start.line;
+      this.machine.decrementMemorySlot(+ctx.MEMORY_SLOT(), editorLine)
+    })
   }
 
   visitLoop(ctx: LoopContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
+    this.templateMethod(() => {
+      // To prevent loops to go infinite, we set a max that we will never reach in normal situations.
+      let counter = 0;
+      while (counter < 1000 && this.machine.isRunning()) {
+        this.callLines(ctx.lines())
+        counter++
 
-    // To prevent loops to go infinite, we set a max that we will never reach in normal situations.
-    let counter = 0;
-    while (counter < 1000 && this.machine.isRunning()) {
-      this.callLines(ctx.lines())
-      counter++
+        if (this.breakContinueState == BreakContinueState.BREAK) {
+          this.breakContinueState = BreakContinueState.IGNORE
+          break;
+        } else if (this.breakContinueState == BreakContinueState.CONTINUE) {
+          this.breakContinueState = BreakContinueState.IGNORE
+        }
 
-      if (this.breakContinueState == BreakContinueState.BREAK) {
-        this.breakContinueState = BreakContinueState.IGNORE
-        break;
-      } else if (this.breakContinueState == BreakContinueState.CONTINUE) {
-        this.breakContinueState = BreakContinueState.IGNORE
+        if (!this.machine.isRunning()) {
+          return
+        }
       }
-    }
 
-    if (counter == 1000) {
-      this.machine.error('Infinite loop reached')
-    }
+      if (counter == 1000) {
+        this.machine.error('Infinite loop reached')
+      }
+    })
   }
 
   // noinspection JSUnusedLocalSymbols
   visitBreak(ctx: BreakContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    this.breakContinueState = BreakContinueState.BREAK
+    this.templateMethod(() => {
+      this.breakContinueState = BreakContinueState.BREAK
+    })
   }
 
   // noinspection JSUnusedLocalSymbols
   visitContinue(ctx: ContinueContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    this.breakContinueState = BreakContinueState.CONTINUE
+    this.templateMethod(() => {
+      this.breakContinueState = BreakContinueState.CONTINUE
+    })
   }
 
   visitIfZero(ctx: IfZeroContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    let value
-    if (ctx.INPUT() != undefined) {
-      value = this.machine.getValueOfInputElement()
-    } else {
-      // We know the value of memory slot is undefined here.
-      // @ts-ignore
-      value = this.machine.getValueOfMemorySlot(+ctx.MEMORY_SLOT())
-    }
-
-    if (value == 0) {
-      this.callLines(ctx.lines())
-    }
+    this.ifTemplate(ctx, (value: number) => value == 0)
   }
 
   visitIfNotZero(ctx: IfNotZeroContext) {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    let value
-    if (ctx.INPUT() != undefined) {
-      value = this.machine.getValueOfInputElement()
-    } else {
-      // We know the value of memory slot is undefined here.
-      // @ts-ignore
-      value = this.machine.getValueOfMemorySlot(+ctx.MEMORY_SLOT())
-    }
-    if (value != 0) {
-      this.callLines(ctx.lines())
-    }
+    this.ifTemplate(ctx, (value: number) => value != 0)
   }
 
   visitIfPos(ctx: IfPosContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
-
-    let value
-    if (ctx.INPUT() != undefined) {
-      value = this.machine.getValueOfInputElement()
-    } else {
-      // We know the value of memory slot is undefined here.
-      // @ts-ignore
-      value = this.machine.getValueOfMemorySlot(+ctx.MEMORY_SLOT())
-    }
-    if (value > 0) {
-      this.callLines(ctx.lines())
-    }
+    this.ifTemplate(ctx, (value: number) => value > 0)
   }
 
   visitIfNeg(ctx: IfNegContext): void {
-    if (this.shouldStopExecutionUntilLoopIsReached()) {
-      return
-    }
+    this.ifTemplate(ctx, (value: number) => value < 0)
+  }
 
-    let value
-    if (ctx.INPUT() != undefined) {
-      value = this.machine.getValueOfInputElement()
-    } else {
-      // We know the value of memory slot is undefined here.
-      // @ts-ignore
-      value = this.machine.getValueOfMemorySlot(+ctx.MEMORY_SLOT())
-    }
-    if (value < 0) {
-      this.callLines(ctx.lines())
-    }
+  // We use ctx as any, because we know that it has certain methods we need and there is no way to enforce this easily.
+  private ifTemplate(ctx: any, check: (value: number) => boolean) {
+    this.templateMethod(() => {
+      let value
+      if (ctx.INPUT() != undefined) {
+        value = this.machine.getValueOfInputElement()
+      } else {
+        // We know the value of memory slot is defined here.
+        // @ts-ignore
+        value = this.machine.getValueOfMemorySlot(+ctx.MEMORY_SLOT())
+      }
+      if (check(value)) {
+        this.callLines(ctx.lines())
+      }
+    })
   }
 
   visitChildren(node: RuleNode): void {
@@ -277,5 +223,17 @@ export class ProgramVisitor implements ArisVisitor<void> {
     if (this.machine.isRunning()) {
       tree.accept(this)
     }
+  }
+
+  private templateMethod(fn: () => void) {
+    if (!this.machine.isRunning()) {
+      return
+    }
+
+    if (this.shouldStopExecutionUntilLoopIsReached()) {
+      return
+    }
+
+    fn()
   }
 }

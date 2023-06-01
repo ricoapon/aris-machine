@@ -17,6 +17,31 @@ describe('Machine', () => {
   // Some methods require an editor line value. If this is not important for the test, use this constant.
   const IGNORE_EDITOR_LINE = 0
 
+  it('any function throws an error if finished', () => {
+    // Given
+    const level = {...DEFAULT_LEVEL, input: [1, 2, 3], output: [1]}
+    const machine = new Machine(level)
+    machine.moveInputToOutput(IGNORE_EDITOR_LINE)
+
+    // When and then
+    expect(() => machine.getValueOfInputElement()).toThrowError()
+    expect(() => machine.getValueOfMemorySlot(0)).toThrowError()
+    expect(() => machine.moveInputToOutput(IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.moveInputToMemorySlot(0, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.moveMemorySlotToOutput(0, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.moveMemorySlotToMemorySlot(0, 1, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.copyMemorySlotToMemorySlot(0, 1, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.copyMemorySlotToOutput(0, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.incrementMemorySlot(0, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.decrementMemorySlot(0, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.addMemorySlotToMemorySlot(0, 1, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.subtractMemorySlotFromMemorySlot(0, 1, IGNORE_EDITOR_LINE)).toThrowError()
+    expect(() => machine.error('')).toThrowError()
+
+    // This method should not throw an error.
+    machine.checkWinningCondition()
+  })
+
   it('isRunning(), getValueOfMemorySlot(), getValueOfInputElement() work', () => {
     // Given
     const level = {...DEFAULT_LEVEL, input: [1, 2], expectedOut: [1]}
@@ -69,23 +94,6 @@ describe('Machine', () => {
     test((machine) => machine.copyMemorySlotToOutput(0, IGNORE_EDITOR_LINE))
   })
 
-  it('no more actions are added after game is finished', () => {
-    // Given
-    const level = {...DEFAULT_LEVEL, input: [0, 1], expectedOut: [0]}
-    const machine = new Machine(level)
-    machine.moveInputToOutput(IGNORE_EDITOR_LINE)
-    expect(machine.isRunning()).toBeFalse()
-
-    // When
-    const actionsBefore = machine.createMachineResult().machineGUIActions
-    machine.moveInputToMemorySlot(0, IGNORE_EDITOR_LINE)
-    machine.copyMemorySlotToMemorySlot(0, 1, IGNORE_EDITOR_LINE)
-    const actionsAfter = machine.createMachineResult().machineGUIActions
-
-    // Then
-    expect(actionsBefore).toEqual(actionsAfter)
-  })
-
   it('error can be called to force stop at any time', () => {
     // Given
     const level = {...DEFAULT_LEVEL, input: [0, 1], expectedOut: [0]}
@@ -93,8 +101,6 @@ describe('Machine', () => {
 
     // When
     machine.error('This is a custom error')
-    // This line will finish the game. This should not happen, since an error was triggered before.
-    machine.moveInputToOutput(IGNORE_EDITOR_LINE)
 
     // Then
     expect(machine.isRunning()).toBeFalse()
