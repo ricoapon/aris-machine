@@ -6,7 +6,7 @@
     "start": "ng serve",
     "build": "ng build code-processing && ng build code-editor && ng build storage && ng build levels && ng build main-application",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test code-processing --watch=false && ng test code-editor --watch=false && ng test storage --watch=false && ng test levels --watch=false && ng test main-application --watch=false"
   },
   "private": true,
   "dependencies": {
