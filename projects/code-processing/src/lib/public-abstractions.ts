@@ -24,11 +24,11 @@ export interface MachineGUI {
   // Is executed when the program is done without error.
   handleFinished(): void
   // Is executed when the program is fails with an error.
-  handleError(): void
+  handleError(message: string): void
   // Remove the first element of the list of inputs.
   handleShiftInput(): void
   // Sets the value of the memory slot with the given value.
-  handleSetMemory(index: number, value: number): void
+  handleSetMemory(index: number, value: number | undefined): void
   // Add a new value to the output.
   handleAddOutput(value: number): void
 }
