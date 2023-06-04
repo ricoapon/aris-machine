@@ -12,8 +12,6 @@ export type Level = {
   input: number[]
   expectedOut: number[]
   nrOfMemorySlots: number
-  maxCodeLengthScoreForStar: number
-  maxRunLengthScoreForStar: number
   description: string
 }
 

@@ -10,8 +10,6 @@ describe('Machine', () => {
     input: [],
     expectedOut: [],
     nrOfMemorySlots: 100,
-    maxCodeLengthScoreForStar: 0,
-    maxRunLengthScoreForStar: 0,
     description: ''
   }
   // Some methods require an editor line value. If this is not important for the test, use this constant.

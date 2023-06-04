@@ -11,8 +11,6 @@ describe('ProgramVisitor', () => {
     input: [],
     expectedOut: [],
     nrOfMemorySlots: 100,
-    maxCodeLengthScoreForStar: 0,
-    maxRunLengthScoreForStar: 0,
     description: ''
   }
 
