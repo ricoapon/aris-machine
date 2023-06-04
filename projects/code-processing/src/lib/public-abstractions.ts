@@ -1,14 +1,5 @@
 import {Level} from "./level";
 
-export abstract class Parser {
-  abstract validate(level: Level, code: string): CompilationError[]
-  abstract parse(level: Level, code: string): MachineExecutorCreator
-}
-
-export abstract class MachineExecutorCreator {
-  abstract initialize(machineGUI: MachineGUI, machineEditor: MachineEditor): MachineExecutor
-}
-
 export interface MachineEditor {
   addCaret(lineNumber: number): void;
 
@@ -31,27 +22,6 @@ export interface MachineGUI {
   handleSetMemory(index: number, value: number | undefined): void
   // Add a new value to the output.
   handleAddOutput(value: number): void
-}
-
-interface MachineExecutor {
-  getRunInfo(): RunInfo
-
-  play(): void
-  pause(): void
-  playSingleStep(): void
-
-  canPlay(): boolean
-  canPause(): boolean
-  canPlaySingleStep(): boolean
-
-  destroy(): void
-}
-
-type RunInfo = {
-  finishedWithError: boolean
-  // Scores are only relevant if finishedWithError is false.
-  lengthScore: number
-  runScore: number
 }
 
 export type CompilationError = {
