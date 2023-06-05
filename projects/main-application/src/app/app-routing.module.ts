@@ -1,9 +1,12 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
 import {NavigationComponent} from "./navigation/navigation.component";
 import {LevelSelectionComponent} from "./navigation/level-selection/level-selection.component";
 import {HomeComponent} from "./navigation/home/home.component";
 import {DocsComponent} from "./navigation/docs/docs.component";
+import {DocumentationComponent} from "./documentation/documentation.component";
+import {LanguageComponent} from "./documentation/language/language.component";
+import {EditorComponent} from "./documentation/editor/editor.component";
 
 const routes: Routes = [
   {
@@ -15,10 +18,19 @@ const routes: Routes = [
       {path: 'docs', component: DocsComponent},
     ],
   },
+  {
+    path: 'docs',
+    component: DocumentationComponent,
+    children: [
+      {path: 'language', component: LanguageComponent},
+      {path: 'editor', component: EditorComponent},
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}

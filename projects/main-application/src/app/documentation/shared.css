@@ -1,0 +1,25 @@
+h1 {
+  color: #C5366C;
+}
+h2  {
+  color: #18BEFD;
+}
+
+.main-container {
+  background-color: black;
+  padding: 20px 40px;
+  width: 800px;
+}
+
+.header-title-icon {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+}

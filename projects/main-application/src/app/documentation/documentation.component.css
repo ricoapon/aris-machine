@@ -1,0 +1,21 @@
+/*
+We use a main container that has the background for the entire page.
+The scroll container is fully sized into that container, so that any scrolling
+does not mess up the layout of the background when switching menu's.
+ */
+.main-container {
+  height: 100%;
+  background-image: url("../../assets/main-chip.png");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 2000px;
+  color: white;
+  background-attachment: fixed;
+}
+
+.scroll-container {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+}
