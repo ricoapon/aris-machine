@@ -13,9 +13,8 @@ import {EditorComponent} from './documentation/editor/editor.component';
 import {CodeEditorModule} from "code-editor";
 import {LevelScreenComponent} from './level-screen/level-screen.component';
 import {ResizableModule} from "angular-resizable-element";
-import { MachineScreenComponent } from './level-screen/machine-screen/machine-screen.component';
-import { SplitContainerComponent } from './level-screen/split-container/split-container.component';
-import { CodeEditorComponent } from './level-screen/code-editor/code-editor.component';
+import {MachineScreenComponent} from './level-screen/machine-screen/machine-screen.component';
+import {SplitContainerComponent} from './level-screen/split-container/split-container.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +29,6 @@ import { CodeEditorComponent } from './level-screen/code-editor/code-editor.comp
     LevelScreenComponent,
     MachineScreenComponent,
     SplitContainerComponent,
-    CodeEditorComponent
   ],
   imports: [
     BrowserModule,

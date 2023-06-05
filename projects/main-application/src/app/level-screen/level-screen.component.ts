@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {Level, Stage} from "code-processing";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LevelFinder} from "levels";
+import {StorageService} from "storage";
 
 @Component({
   selector: 'app-level-screen',
@@ -9,11 +10,14 @@ import {LevelFinder} from "levels";
   styleUrls: ['./level-screen.component.css']
 })
 export class LevelScreenComponent implements OnInit {
-  level: Level;
+  level: Level
+  content: string
+  updateCookieTimeout: NodeJS.Timeout | undefined = undefined
 
   constructor(private route: ActivatedRoute,
               private router: Router,
-              private levelFinder: LevelFinder) {
+              private levelFinder: LevelFinder,
+              private storageService: StorageService) {
   }
 
   ngOnInit(): void {
@@ -35,5 +39,18 @@ export class LevelScreenComponent implements OnInit {
         this.router.navigate(['/'])
       }
     })
+
+    this.content = this.storageService.getCode(this.level.stage, this.level.id)
+  }
+
+  updateContent(content: string) {
+    this.content = content
+
+    // We don't want to spam the storage with new values on every keyboard press.
+    // We only save if no changes have been made for one second.
+    if (this.updateCookieTimeout != undefined) {
+      clearInterval(this.updateCookieTimeout)
+    }
+    this.updateCookieTimeout = setTimeout(() => this.storageService.setCode(this.level.stage, this.level.id, content), 1000)
   }
 }
