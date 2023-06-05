@@ -1,9 +1,15 @@
 import {Injectable} from "@angular/core";
 import {CookieService} from "ngx-cookie-service";
+import {Stage} from "code-processing";
 
 type CookieStorage = {
   speedUpFactor: number,
   leftContainerWidthInPixels: number | undefined,
+  code: {
+    [stage: number]: {
+      [key: number]: string
+    }
+  }
 }
 
 @Injectable({
@@ -21,7 +27,9 @@ export class StorageService {
       this.storage = {
         speedUpFactor: 1,
         leftContainerWidthInPixels: undefined,
+        code: {}
       }
+      this.storage.code[Stage.MAIN] = {}
     }
   }
 
@@ -35,6 +43,19 @@ export class StorageService {
 
   setLeftContainerWidthInPixels(value: number | undefined) {
     this.storage.leftContainerWidthInPixels = value
+    this.save()
+  }
+
+  getCode(stage: Stage, levelId: number): string {
+    if (this.storage.code[stage][levelId] == undefined) {
+      return ''
+    }
+
+    return this.storage.code[stage][levelId]
+  }
+
+  setCode(stage: Stage, levelId: number, code: string) {
+    this.storage.code[stage][levelId] = code
     this.save()
   }
 
