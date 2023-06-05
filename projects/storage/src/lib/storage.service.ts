@@ -3,6 +3,7 @@ import {CookieService} from "ngx-cookie-service";
 
 type CookieStorage = {
   speedUpFactor: number,
+  leftContainerWidthInPixels: number | undefined,
 }
 
 @Injectable({
@@ -19,12 +20,22 @@ export class StorageService {
     } else {
       this.storage = {
         speedUpFactor: 1,
+        leftContainerWidthInPixels: undefined,
       }
     }
   }
 
   private save() {
     this.cookieService.set(this.COOKIE_NAME, JSON.stringify(this.storage), this.EXPIRES_IN_DAYS)
+  }
+
+  getLeftContainerWidthInPixels(): number | undefined {
+    return this.storage.leftContainerWidthInPixels
+  }
+
+  setLeftContainerWidthInPixels(value: number | undefined) {
+    this.storage.leftContainerWidthInPixels = value
+    this.save()
   }
 
   getSpeedUpFactor(): number {
