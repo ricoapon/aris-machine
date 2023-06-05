@@ -1,5 +1,4 @@
 import {Component} from '@angular/core';
-import {ScenarioEventsBuilder} from "code-editor";
 
 @Component({
   selector: 'app-root',
@@ -8,8 +7,4 @@ import {ScenarioEventsBuilder} from "code-editor";
 })
 export class AppComponent {
   title = 'main-application';
-
-  builder(): ScenarioEventsBuilder {
-    return new ScenarioEventsBuilder()
-  }
 }
