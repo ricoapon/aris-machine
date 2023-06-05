@@ -160,7 +160,7 @@ function createDictionary(monaco: any): DictionaryItem[] {
     {
       label: 'decr',
       documentation: "#### decr [memory-slot]\n---\n" +
-        "Decrements the value of a memory slot by one.",
+        "Decrease the value of a memory slot by one.",
       suggestion: {
         kind: monaco.languages.CompletionItemKind.Snippet,
         insertText: 'decr $1',
