@@ -1,0 +1,36 @@
+.menu {
+  width: 400px;
+  height: 380px;
+  background-color: black;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-size: 60px;
+  /* The font has a lot of whitespace around it. We already have gaps in the menu, so we reduce the height. */
+  line-height: 40px;
+}
+
+button {
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 30px;
+  border-radius: 100px;
+  color: white;
+  border: solid 3px transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(90deg, rgba(24,190,253,1) 0%, rgba(197,54,108,1) 35%, rgba(197,54,108,1) 65%, rgba(24,190,253,1) 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #000000 inset;
+}
+
+button:hover {
+  box-shadow: none;
+}

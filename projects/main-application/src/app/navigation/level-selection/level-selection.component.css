@@ -1,0 +1,13 @@
+.levels {
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.level-button {
+  padding: 4px 0 !important;
+  border-radius: 100px;
+  width: 60px;
+}

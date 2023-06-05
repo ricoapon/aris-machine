@@ -1,0 +1,9 @@
+<div class="menu">
+  <h1>Level selection</h1>
+  <div class="levels">
+    <button *ngFor="let i of levels()" [routerLink]="'' + i" class="level level-button">
+      {{ i }}
+    </button>
+  </div>
+  <button routerLink="..">Back</button>
+</div>
