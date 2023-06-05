@@ -1,4 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
+:root {
+  --blue: #18BEFD;
+  --red: #C5366C;
+}
+
 html, body {
   margin: 0;
   padding: 0;
@@ -15,7 +20,7 @@ body {
 }
 
 a {
-  color: #C5366C;
+  color: var(--red);
   text-decoration: none;
 }
 
@@ -30,22 +35,6 @@ p {
   line-height: 24px;
   margin: 0;
   padding: 0 0 8px 0;
-}
-
-.bg-purple {
-  background-color: #A600E0;
-}
-
-.bg-blue {
-  background-color: #00AAE0;
-}
-
-.bg-green {
-  background-color: #3AE000;
-}
-
-.bg-red {
-  background-color: #E03600;
 }
 
 code {

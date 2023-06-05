@@ -1,11 +1,11 @@
 h1 {
-  color: #C5366C;
+  color: var(--red);
 }
 h2  {
-  color: #18BEFD;
+  color: var(--blue);
 }
 h3 {
-  color: #C5366C;
+  color: var(--red);
 }
 
 .main-container {
