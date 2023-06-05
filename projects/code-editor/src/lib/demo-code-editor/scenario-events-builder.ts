@@ -6,9 +6,9 @@ export type ScenarioEvent = {
 export class ScenarioEventsBuilder {
   private readonly events: ScenarioEvent[] = []
 
-  private createAndAddScenarioEvent(event: (editor: any) => void, delayAfterInMs: number = 800) {
+  private createAndAddScenarioEvent(event: (editor: any) => void, delayBeforeInMs: number = 800) {
     this.events.push({
-      event, delayBeforeInMs: delayAfterInMs
+      event, delayBeforeInMs
     })
   }
 
