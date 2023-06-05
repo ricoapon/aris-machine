@@ -1,0 +1,21 @@
+.header {
+  color: white;
+  padding: 8px 16px;
+}
+
+.header-title-hamburger {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.hamburger {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.editor {
+  flex-grow: 1;
+  padding: 1px;
+}

@@ -1,0 +1,21 @@
+<app-split-container>
+  <div left>
+    <div class="header">
+      <div class="header-title-hamburger">
+        <div class="hamburger">
+          <img src="assets/Hamburger.svg" alt="menu"/>
+        </div>
+        <h1>The Aris Machine</h1>
+
+      </div>
+      <p [innerHTML]="level.description"></p>
+    </div>
+    <div class="editor">
+      <app-code-editor></app-code-editor>
+    </div>
+  </div>
+
+  <div right>
+    <app-machine-screen></app-machine-screen>
+  </div>
+</app-split-container>

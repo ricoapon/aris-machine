@@ -11,6 +11,11 @@ import {DocumentationComponent} from './documentation/documentation.component';
 import {LanguageComponent} from './documentation/language/language.component';
 import {EditorComponent} from './documentation/editor/editor.component';
 import {CodeEditorModule} from "code-editor";
+import {LevelScreenComponent} from './level-screen/level-screen.component';
+import {ResizableModule} from "angular-resizable-element";
+import { MachineScreenComponent } from './level-screen/machine-screen/machine-screen.component';
+import { SplitContainerComponent } from './level-screen/split-container/split-container.component';
+import { CodeEditorComponent } from './level-screen/code-editor/code-editor.component';
 
 @NgModule({
   declarations: [
@@ -21,14 +26,20 @@ import {CodeEditorModule} from "code-editor";
     DocsComponent,
     DocumentationComponent,
     LanguageComponent,
-    EditorComponent
+    EditorComponent,
+    LevelScreenComponent,
+    MachineScreenComponent,
+    SplitContainerComponent,
+    CodeEditorComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    CodeEditorModule
+    CodeEditorModule,
+    ResizableModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

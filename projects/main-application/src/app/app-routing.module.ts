@@ -7,6 +7,7 @@ import {DocsComponent} from "./navigation/docs/docs.component";
 import {DocumentationComponent} from "./documentation/documentation.component";
 import {LanguageComponent} from "./documentation/language/language.component";
 import {EditorComponent} from "./documentation/editor/editor.component";
+import {LevelScreenComponent} from "./level-screen/level-screen.component";
 
 const routes: Routes = [
   {
@@ -26,6 +27,8 @@ const routes: Routes = [
       {path: 'editor', component: EditorComponent},
     ],
   },
+  {path: 'levels/:id', component: LevelScreenComponent},
+  {path: '**', redirectTo: '/'},
 ];
 
 @NgModule({
