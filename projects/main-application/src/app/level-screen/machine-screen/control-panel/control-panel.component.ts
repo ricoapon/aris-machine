@@ -14,6 +14,7 @@ export class ControlPanelComponent {
   constructor(private levelScreenSharedExecutor: LevelScreenSharedExecutor,
               private storageService: StorageService) {
     this.speedUpFactor = this.storageService.getSpeedUpFactor()
+    this.levelScreenSharedExecutor.setUpdateDelayInMs(1000 / this.speedUpFactor)
   }
 
   private determineState(): MachineState {
@@ -47,6 +48,6 @@ export class ControlPanelComponent {
     this.speedUpFactor = factor
     this.storageService.setSpeedUpFactor(factor)
     // Start of slider means 1000ms delay and end of slider means 10ms delay.
-    this.levelScreenSharedExecutor.getMachineGuiExecutor()?.updateDelayInMs(1000 / factor)
+    this.levelScreenSharedExecutor.setUpdateDelayInMs(1000 / factor)
   }
 }

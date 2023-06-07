@@ -1,8 +1,9 @@
 import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core';
-import {ActivatedRoute, Router} from "@angular/router";
-import {Level, MachineGUI} from "code-processing";
+import {Router} from "@angular/router";
+import {Level, MachineGUI, Stage} from "code-processing";
 import {LevelScreenSharedExecutor} from "../level-screen-shared-executor";
 import {StorageService} from "storage";
+import {LevelFinder} from "levels";
 
 @Component({
   selector: 'app-machine-screen',
@@ -18,8 +19,8 @@ export class MachineScreenComponent implements MachineGUI {
   constructor(private changeDetectorRef: ChangeDetectorRef,
               private levelScreenSharedExecutor: LevelScreenSharedExecutor,
               private storageService: StorageService,
-              private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private levelFinder: LevelFinder) {
     // Add some values so the HTML stuff doesn't break.
     this.input = []
     this.output = []
@@ -53,27 +54,27 @@ export class MachineScreenComponent implements MachineGUI {
     }
   }
 
+  isLastLevel(): boolean {
+    const currentLevelId = this.levelScreenSharedExecutor.level.id
+    return this.levelFinder.getLevels(Stage.MAIN).length <= currentLevelId + 1
+  }
+
   dialogBack() {
     this.levelScreenSharedExecutor.stopAndClear()
     this.finishedDialog.nativeElement.close()
   }
 
   dialogNext() {
-    this.route.paramMap.subscribe(paramMap => {
-      const levelId = paramMap.get('id')
-      if (levelId == null) {
-        throw Error('Level could not be found after finishing, this should not happen!')
-      }
-      const nextLevel: number = 1 + +levelId
+    const currentLevelId = this.levelScreenSharedExecutor.level.id
+    const nextLevel: number = 1 + currentLevelId
 
-      // If we navigate normally, we don't re-initialise the entire level. If we refresh the page, it does.
-      // To mimic this, we use a trick to reload the level page.
-      // See https://stackoverflow.com/questions/40983055/how-to-reload-the-current-route-with-the-angular-2-router.
-      // We are not actually reloading the page, so we have to reset the executor though.
-      this.levelScreenSharedExecutor.stopAndClear()
-      this.router.navigateByUrl('/', {skipLocationChange: true})
-        .then(() => this.router.navigate(['/levels/' + nextLevel]));
-    })
+    // If we navigate normally, we don't re-initialise the entire level. If we refresh the page, it does.
+    // To mimic this, we use a trick to reload the level page.
+    // See https://stackoverflow.com/questions/40983055/how-to-reload-the-current-route-with-the-angular-2-router.
+    // We are not actually reloading the page, so we have to reset the executor though.
+    this.levelScreenSharedExecutor.stopAndClear()
+    this.router.navigateByUrl('/', {skipLocationChange: true})
+      .then(() => this.router.navigate(['/levels/' + nextLevel]));
   }
 
   handleAddOutput(value: number): void {

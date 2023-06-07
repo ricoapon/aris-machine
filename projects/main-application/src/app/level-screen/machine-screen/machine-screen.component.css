@@ -41,3 +41,34 @@
   bottom: 0;
   width: 100%;
 }
+
+dialog {
+  background-color: black;
+  border: 2px solid;
+  border-image-slice: 1;
+  border-image-source: linear-gradient(180deg, rgba(24,190,253,1) 0%, rgba(197,54,108,1) 50%);
+}
+
+dialog h1 {
+  color: white;
+  text-align: center;
+}
+
+dialog button {
+  width: 100%;
+  padding: 4px 8px;
+  font-size: 30px;
+  border-radius: 100px;
+  color: white;
+  border: solid 3px transparent;
+  background-image: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0)), linear-gradient(90deg, rgba(24,190,253,1) 0%, rgba(197,54,108,1) 35%, rgba(197,54,108,1) 65%, rgba(24,190,253,1) 100%);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  box-shadow: 2px 1000px 1px #000000 inset;
+
+  margin-bottom: 10px;
+}
+
+.highlight, dialog button:hover {
+  box-shadow: none !important;
+}

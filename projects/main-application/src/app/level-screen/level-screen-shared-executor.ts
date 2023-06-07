@@ -11,6 +11,7 @@ export class LevelScreenSharedExecutor {
   public level: Level
   private machineGUI: MachineGUI
   private machineEditor: MachineEditor
+  private updateDelayInMs: number = 1000
 
   setDetermineCode(determineCode: () => string) {
     this.determineCode = determineCode
@@ -21,10 +22,16 @@ export class LevelScreenSharedExecutor {
     this.machineEditor = machineEditor
   }
 
+  setUpdateDelayInMs(updateDelayInMs: number) {
+    this.updateDelayInMs = updateDelayInMs
+    this.machineGuiExecutor?.updateDelayInMs(this.updateDelayInMs)
+  }
+
   play() {
     if (this.machineGuiExecutor == undefined || this.machineGuiExecutor.getState() == MachineState.FINISHED) {
       const code = this.determineCode()
       this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+      this.machineGuiExecutor.updateDelayInMs(this.updateDelayInMs)
     }
 
     if (this.machineGuiExecutor.getState() == MachineState.INITIALIED || this.machineGuiExecutor.getState() == MachineState.READY) {

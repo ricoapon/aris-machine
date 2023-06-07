@@ -24,8 +24,9 @@
   <div>
     <h1>Finished the level!</h1>
     <div>
+      <button *ngIf="!isLastLevel()" class="highlight" (click)="dialogNext()">Next level</button>
+      <button *ngIf="isLastLevel()" class="highlight" routerLink="/">Back to menu</button>
       <button (click)="dialogBack()">Back to level</button>
-      <button (click)="dialogNext()">Next level</button>
     </div>
   </div>
 </dialog>
