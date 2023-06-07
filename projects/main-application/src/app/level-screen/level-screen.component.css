@@ -3,16 +3,17 @@
   padding: 8px 16px;
 }
 
-.header-title-hamburger {
+.header-title-back-icon {
   display: flex;
   gap: 8px;
   margin-bottom: 8px;
 }
 
-.hamburger {
+.icon {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 32px;
 }
 
 .editor {

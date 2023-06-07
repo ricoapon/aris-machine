@@ -1,19 +1,23 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
 import {Level, Stage} from "code-processing";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LevelFinder} from "levels";
 import {StorageService} from "storage";
 import {LevelScreenSharedExecutor} from "./level-screen-shared-executor";
+import {CodeEditorComponent} from "code-editor";
+import {MachineScreenComponent} from "./machine-screen/machine-screen.component";
 
 @Component({
   selector: 'app-level-screen',
   templateUrl: './level-screen.component.html',
   styleUrls: ['./level-screen.component.css']
 })
-export class LevelScreenComponent implements OnInit {
+export class LevelScreenComponent implements OnInit, AfterViewInit {
   level: Level
   content: string
   updateCookieTimeout: NodeJS.Timeout | undefined = undefined
+  @ViewChild('machineScreen') machineScreenComponent: MachineScreenComponent;
+  @ViewChild('codeEditor') codeEditorComponent: CodeEditorComponent;
 
   constructor(private route: ActivatedRoute,
               private router: Router,
@@ -45,6 +49,12 @@ export class LevelScreenComponent implements OnInit {
     })
 
     this.content = this.storageService.getCode(this.level.stage, this.level.id)
+  }
+
+  ngAfterViewInit(): void {
+    this.machineScreenComponent.initialize(this.level)
+    this.machineScreenComponent.detectChanges()
+    this.levelScreenSharedExecutor.initialize(this.machineScreenComponent, this.codeEditorComponent)
   }
 
   updateContent(content: string) {

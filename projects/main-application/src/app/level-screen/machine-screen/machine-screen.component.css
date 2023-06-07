@@ -1,0 +1,43 @@
+.machine-container {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.horizontal-lines {
+  width: 100%;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+}
+
+.horizontal-lines.top {
+  background: url("../../../assets/level-screen/mid-section-lines-blue.svg");
+}
+
+.horizontal-lines.bottom {
+  background: url("../../../assets/level-screen/mid-section-lines-red.svg");
+}
+
+.horizontal-lines .fixed {
+  position: absolute;
+  right: 0;
+  transform: rotate(180deg);
+}
+
+.fixed.right {
+  right: 0;
+}
+
+.fixed.left {
+  left: 0
+}
+
+.control-panel {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}

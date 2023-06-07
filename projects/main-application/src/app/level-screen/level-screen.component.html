@@ -1,9 +1,9 @@
 <app-split-container>
   <ng-container left>
     <div class="header">
-      <div class="header-title-hamburger">
-        <div class="hamburger">
-          <img src="assets/Hamburger.svg" alt="menu"/>
+      <div class="header-title-back-icon">
+        <div class="icon">
+          <img routerLink=".." src="../../assets/Back.svg" alt="back"/>
         </div>
         <h1>The Aris Machine</h1>
 
@@ -11,11 +11,11 @@
       <p [innerHTML]="level.description"></p>
     </div>
     <div class="editor">
-      <code-editor [initialContent]="content" (onContentChangeEmitter)="updateContent($event)"></code-editor>
+      <code-editor [initialContent]="content" (onContentChangeEmitter)="updateContent($event)"#codeEditor></code-editor>
     </div>
   </ng-container>
 
   <ng-container right>
-    <app-machine-screen></app-machine-screen>
+    <app-machine-screen #machineScreen></app-machine-screen>
   </ng-container>
 </app-split-container>

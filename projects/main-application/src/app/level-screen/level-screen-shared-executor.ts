@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {Level, MachineEditor, MachineGUI, MachineGuiExecutor, Parser} from "code-processing";
+import {Level, MachineEditor, MachineGUI, MachineGuiExecutor, MachineState, Parser} from "code-processing";
 
 @Injectable({
   providedIn: 'root',
@@ -25,8 +25,32 @@ export class LevelScreenSharedExecutor {
     this.machineEditor = machineEditor
   }
 
-  start() {
-    const code = this.determineCode()
-    this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+  play() {
+    if (this.machineGuiExecutor == undefined || this.machineGuiExecutor.getState() == MachineState.FINISHED) {
+      const code = this.determineCode()
+      this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+    }
+
+    if (this.machineGuiExecutor.getState() == MachineState.INITIALIED || this.machineGuiExecutor.getState() == MachineState.READY) {
+      this.machineGuiExecutor.play()
+    }
+  }
+
+  playSingleStep() {
+    if (this.machineGuiExecutor == undefined || this.machineGuiExecutor.getState() == MachineState.FINISHED) {
+      const code = this.determineCode()
+      this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+    }
+
+    this.machineGuiExecutor.playSingleStep()
+  }
+
+  getMachineGuiExecutor(): MachineGuiExecutor | undefined {
+    return this.machineGuiExecutor
+  }
+
+  stopAndClear() {
+    this.machineGuiExecutor?.stopAndClear()
+    this.machineGuiExecutor = undefined
   }
 }

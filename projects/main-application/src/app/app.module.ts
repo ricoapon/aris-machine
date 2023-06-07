@@ -15,6 +15,9 @@ import {LevelScreenComponent} from './level-screen/level-screen.component';
 import {ResizableModule} from "angular-resizable-element";
 import {MachineScreenComponent} from './level-screen/machine-screen/machine-screen.component';
 import {SplitContainerComponent} from './level-screen/split-container/split-container.component';
+import { ControlPanelComponent } from './level-screen/machine-screen/control-panel/control-panel.component';
+import { InOutTrackComponent } from './level-screen/machine-screen/in-out-track/in-out-track.component';
+import { MemoryComponent } from './level-screen/machine-screen/memory/memory.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +32,9 @@ import {SplitContainerComponent} from './level-screen/split-container/split-cont
     LevelScreenComponent,
     MachineScreenComponent,
     SplitContainerComponent,
+    ControlPanelComponent,
+    InOutTrackComponent,
+    MemoryComponent,
   ],
   imports: [
     BrowserModule,

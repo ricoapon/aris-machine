@@ -1,1 +1,31 @@
-<p>machine-screen works!</p>
+<div class="machine-container">
+  <app-in-out-track [isIn]="true" [values]="input"></app-in-out-track>
+
+  <div class="horizontal-lines top">
+    <img *ngFor="let i of rangeToN(determineNrOfGridColumns())" src="../../../assets/level-screen/lines-going-up-into-mid-section-lines-blue.svg"/>
+
+    <img src="../../../assets/level-screen/lines-going-up-into-mid-section-lines-blue.svg" class="fixed right"/>
+  </div>
+
+  <app-memory [memorySlots]="memorySlots" [nrOfGridColumns]="determineNrOfGridColumns()"></app-memory>
+
+  <div class="horizontal-lines bottom">
+    <img *ngFor="let i of rangeToN(determineNrOfGridColumns())" src="../../../assets/level-screen/lines-going-down-into-mid-section-lines-red.svg"/>
+
+    <img src="../../../assets/level-screen/lines-going-down-into-mid-section-lines-red.svg" class="fixed left"/>
+  </div>
+
+  <app-in-out-track [isIn]="false" [values]="output"></app-in-out-track>
+
+  <app-control-panel class="control-panel"></app-control-panel>
+</div>
+
+<dialog #finishedDialog>
+  <div>
+    <h1>Finished the level!</h1>
+    <div>
+      <button (click)="dialogBack()">Back to level</button>
+      <button (click)="dialogNext()">Next level</button>
+    </div>
+  </div>
+</dialog>

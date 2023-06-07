@@ -1,0 +1,19 @@
+<div class="track-container">
+  <div *ngIf="!isIn" class="title">
+    <img src="../../../../assets/level-screen/lines-going-down-into-mid-section-lines-red.svg"/>
+  </div>
+  <div #line class="line"
+       [ngClass]="isIn ? 'border-blue' : 'border-red'"
+       [style.padding-right]="isIn ? '30px' : 0"
+       [style.padding-left]="isIn ? 0 : '30px'"
+       [style.flex-direction]="isIn ? 'row-reverse' : 'row'">
+    <ng-container *ngFor="let value of values; let i = index">
+      <div *ngIf="i < maxIndex()" class="memory-block" [ngClass]="isIn ? 'memory-block-blue' : 'memory-block-red'">
+        {{ value }}
+      </div>
+    </ng-container>
+  </div>
+  <div *ngIf="isIn" class="title">
+    <img src="../../../../assets/level-screen/lines-going-up-into-mid-section-lines-blue.svg"/>
+  </div>
+</div>
