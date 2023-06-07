@@ -11,7 +11,7 @@
       <p [innerHTML]="level.description"></p>
     </div>
     <div class="editor">
-      <code-editor [initialContent]="content" (onContentChangeEmitter)="updateContent($event)"#codeEditor></code-editor>
+      <code-editor [initialContent]="content" (onContentChangeEmitter)="updateContent($event)" (onExecuteEmitter)="execute()"  #codeEditor></code-editor>
     </div>
   </ng-container>
 

@@ -68,6 +68,10 @@ export class LevelScreenComponent implements OnInit, AfterViewInit {
     this.updateCookieTimeout = setTimeout(() => this.storageService.setCode(this.level.stage, this.level.id, content), 1000)
   }
 
+  execute() {
+    this.levelScreenSharedExecutor.play()
+  }
+
   @HostListener('window:popstate', ['$event'])
   onPopState(event: any) {
     // If we press back in the browser, we don't re-initialise the entire level. If we refresh the page, it does.
