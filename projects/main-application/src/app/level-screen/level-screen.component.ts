@@ -3,6 +3,7 @@ import {Level, Stage} from "code-processing";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LevelFinder} from "levels";
 import {StorageService} from "storage";
+import {LevelScreenSharedExecutor} from "./level-screen-shared-executor";
 
 @Component({
   selector: 'app-level-screen',
@@ -17,7 +18,9 @@ export class LevelScreenComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private router: Router,
               private levelFinder: LevelFinder,
-              private storageService: StorageService) {
+              private storageService: StorageService,
+              private levelScreenSharedExecutor: LevelScreenSharedExecutor) {
+    this.levelScreenSharedExecutor.setDetermineCode(() => this.content)
   }
 
   ngOnInit(): void {
@@ -30,6 +33,7 @@ export class LevelScreenComponent implements OnInit {
         }
 
         this.level = this.levelFinder.getLevel(Stage.MAIN, +levelId)
+        this.levelScreenSharedExecutor.setLevel(this.level)
 
         if (this.level == undefined) {
           // noinspection ExceptionCaughtLocallyJS
