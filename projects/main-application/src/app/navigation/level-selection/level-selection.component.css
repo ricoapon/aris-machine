@@ -6,6 +6,10 @@
   justify-content: center;
 }
 
+.levels > .completed {
+  box-shadow: none;
+}
+
 .level-button {
   padding: 4px 0 !important;
   border-radius: 100px;

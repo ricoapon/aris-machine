@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {LevelFinder} from "levels";
 import {Stage} from "code-processing";
+import {StorageService} from "storage";
 
 @Component({
   selector: 'app-level-selection',
@@ -10,7 +11,7 @@ import {Stage} from "code-processing";
 export class LevelSelectionComponent {
   readonly nrOfLevels: number
 
-  constructor(levelFinder: LevelFinder) {
+  constructor(levelFinder: LevelFinder, private storageService: StorageService) {
     this.nrOfLevels = levelFinder.getLevels(Stage.MAIN).length
   }
 
@@ -20,5 +21,12 @@ export class LevelSelectionComponent {
       result.push(i)
     }
     return result
+  }
+
+  isCompleted(i: number): string {
+    if (this.storageService.isLevelCompleted(Stage.MAIN, i)) {
+      return 'completed'
+    }
+    return ''
   }
 }

@@ -2,6 +2,7 @@ import {ChangeDetectorRef, Component, ElementRef, ViewChild} from '@angular/core
 import {ActivatedRoute, Router} from "@angular/router";
 import {Level, MachineGUI} from "code-processing";
 import {LevelScreenSharedExecutor} from "../level-screen-shared-executor";
+import {StorageService} from "storage";
 
 @Component({
   selector: 'app-machine-screen',
@@ -15,7 +16,8 @@ export class MachineScreenComponent implements MachineGUI {
   @ViewChild('finishedDialog') finishedDialog: ElementRef<HTMLDialogElement>
 
   constructor(private changeDetectorRef: ChangeDetectorRef,
-              public levelScreenSharedExecutor: LevelScreenSharedExecutor,
+              private levelScreenSharedExecutor: LevelScreenSharedExecutor,
+              private storageService: StorageService,
               private route: ActivatedRoute,
               private router: Router) {
     // Add some values so the HTML stuff doesn't break.
@@ -84,6 +86,7 @@ export class MachineScreenComponent implements MachineGUI {
   }
 
   handleFinished(): void {
+    this.storageService.completeLevel(this.levelScreenSharedExecutor.level.stage, this.levelScreenSharedExecutor.level.id)
     this.finishedDialog.nativeElement.showModal()
   }
 

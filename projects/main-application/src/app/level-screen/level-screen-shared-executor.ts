@@ -8,16 +8,12 @@ export class LevelScreenSharedExecutor {
   private readonly parser = new Parser()
   private machineGuiExecutor: MachineGuiExecutor | undefined = undefined
   private determineCode: () => string
-  private level: Level
+  public level: Level
   private machineGUI: MachineGUI
   private machineEditor: MachineEditor
 
   setDetermineCode(determineCode: () => string) {
     this.determineCode = determineCode
-  }
-
-  setLevel(level: Level) {
-    this.level = level
   }
 
   initialize(machineGUI: MachineGUI, machineEditor: MachineEditor) {

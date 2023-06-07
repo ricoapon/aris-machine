@@ -37,7 +37,7 @@ export class LevelScreenComponent implements OnInit, AfterViewInit {
         }
 
         this.level = this.levelFinder.getLevel(Stage.MAIN, +levelId)
-        this.levelScreenSharedExecutor.setLevel(this.level)
+        this.levelScreenSharedExecutor.level = this.level
 
         if (this.level == undefined) {
           // noinspection ExceptionCaughtLocallyJS
