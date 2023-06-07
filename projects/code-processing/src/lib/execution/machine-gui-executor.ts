@@ -3,7 +3,9 @@ import {MachineEditor, MachineGUI} from "../public-abstractions";
 import {Level} from "../level";
 
 export enum MachineState {
-  /** Indicates that there are still actions left to be played, but is currently not running. */
+  /** Indicates that there are still actions left to be played, but not a single step is executed. */
+  INITIALIED,
+  /** Indicates that there are still actions left to be played and a single step is executed, but is currently not running. */
   READY,
   /** Indicates that there are actions still left to be played and is also running. */
   RUNNING,
@@ -23,6 +25,7 @@ export class MachineGuiExecutor {
   private actions: MachineGUIAction[]
   private delayInMs: number = 1000;
   private timeout: NodeJS.Timeout | undefined
+  private hasExecutedFirstAction = false
 
   constructor(private machineGUI: MachineGUI,
               private machineEditor: MachineEditor,
@@ -37,6 +40,10 @@ export class MachineGuiExecutor {
   }
 
   getState(): MachineState {
+    if (!this.hasExecutedFirstAction) {
+      return MachineState.INITIALIED
+    }
+
     if (this.timeout != undefined) {
       return MachineState.RUNNING
     }
@@ -76,6 +83,7 @@ export class MachineGuiExecutor {
     this.actions = []
     this.machineEditor.removeCaret()
     this.machineGUI.initialize(this.level)
+    this.hasExecutedFirstAction = true
   }
 
   private pause(): void {
@@ -107,6 +115,8 @@ export class MachineGuiExecutor {
   }
 
   private handle(action: MachineGUIAction) {
+    this.hasExecutedFirstAction = true
+
     if (action.editorLine) {
       this.machineEditor.removeCaret()
       this.machineEditor.addCaret(action.editorLine)

@@ -27,11 +27,13 @@ describe('MachineGuiExecutor', () => {
   it('getState() works', () => {
     // Given
     const machineGUIExecutor = new MachineGuiExecutor(new MockMachineGUI(), new MockMachineEditor(), DEFAULT_LEVEL, {
-      machineGUIActions: [SHIFT_INPUT_ACTION, SHIFT_INPUT_ACTION, SHIFT_INPUT_ACTION],
+      machineGUIActions: [SHIFT_INPUT_ACTION, SHIFT_INPUT_ACTION, SHIFT_INPUT_ACTION, SHIFT_INPUT_ACTION],
       finishedWithError: false
     })
 
     // When and then
+    expect(machineGUIExecutor.getState()).toEqual(MachineState.INITIALIED)
+    machineGUIExecutor.playSingleStep()
     expect(machineGUIExecutor.getState()).toEqual(MachineState.READY)
     machineGUIExecutor.play()
     expect(machineGUIExecutor.getState()).toEqual(MachineState.RUNNING)
