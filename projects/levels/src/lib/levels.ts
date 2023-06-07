@@ -72,7 +72,10 @@ const MAIN_LEVELS: Level[] = [
     input: [4, 8, 3, 1, 10],
     expectedOut: [12, 24, 9, 3, 30],
     nrOfMemorySlots: 3,
-    description: "Triple the input value and output the result."
+    description: "Triple the input value and output the result.<br>"
+      + "<br>" +
+        "If you are interested in how to make use useful tricks with the text editor, go to this page: " +
+        "<a href='/docs/editor' target='_blank'>Monaco editor</a>."
   },
   {
     stage: Stage.MAIN,
@@ -100,7 +103,7 @@ const MAIN_LEVELS: Level[] = [
     expectedOut: [0, 0, 0, 0],
     nrOfMemorySlots: 3,
     description: "Only move the 0 values to the output. You can use the command <code>ifzero [memory-slot | input] { ... }</code> " +
-      "to only execute commands if the memory slot or input has the value 0 in it." +
+      "to only execute commands if the memory slot or input has the value 0 in it.<br>" +
       "<br>" +
       "The function <code>ifnotzero</code> also exists, which does the opposite: executes code only if the value is not equal to 0."
   },
@@ -114,7 +117,7 @@ const MAIN_LEVELS: Level[] = [
     description: "If the input is positive, add 1 and output that. If the input is negative, subtract 1 and output that. " +
       "Ignore any input that is 0.<br>" +
       "<br>" +
-      "You can use the command <code>ifpos [memory-slot | input] { ... }</code> or similarly <code>ifneg</code>." +
+      "You can use the command <code>ifpos [memory-slot | input] { ... }</code> or similarly <code>ifneg</code>.<br>" +
       "<br>" +
       "You can use the command <code>incr [memory-slot]</code> to increase the value of a memory slot by 1. Or you can use" +
       "<code>decr</code> to decreate the value by 1."
@@ -127,7 +130,7 @@ const MAIN_LEVELS: Level[] = [
     expectedOut: [-6, -2, 9, 8, -10, -1],
     nrOfMemorySlots: 3,
     description: "For each two things in the input, first subtract the 1st from the 2nd and put the result in the output. " +
-      "And then, subtract the 2nd from the 1st and put the result in the output. repeat." +
+      "And then, subtract the 2nd from the 1st and put the result in the output. repeat.<br>" +
       "<br>" +
       "You can use the command <code>sub [memory-slot] from [memory-slot]</code> to subtract the first memory slot from the" +
       "second. Alternatively, you can use <code>add [memory-slot] to [memory-slot]</code>."
@@ -166,7 +169,7 @@ const MAIN_LEVELS: Level[] = [
     input: [9, -3, 0, 2],
     expectedOut: [9, 8, 7, 6, 5, 4, 3, 2, 1, 0, -3, -2, -1, 0, 0, 2, 1, 0],
     nrOfMemorySlots: 5,
-    description: "For each input, send that number to the output, followed by all numbers down to (or up to!) zero." +
+    description: "For each input, send that number to the output, followed by all numbers down to (or up to!) zero.<br>" +
       "<br>" +
       "When using the <code>break</code> command, you stop the innermost loop that is currently running."
   },
@@ -177,7 +180,7 @@ const MAIN_LEVELS: Level[] = [
     input: [6, 4, 6, 2, 0, 0, 5, 3, 1, 1, 7, 0, 0, 7],
     expectedOut: [24, 12, 0, 15, 1, 0, 0],
     nrOfMemorySlots: 5,
-    description: "For each two items in the input, multiply them and output the result. Don't worry about negative numbers for now." +
+    description: "For each two items in the input, multiply them and output the result. Don't worry about negative numbers for now.<br>" +
       "<br>" +
       "When using the <code>continue</code> command, you continue the loop again from the start."
   },
