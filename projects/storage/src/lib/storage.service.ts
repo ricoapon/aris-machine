@@ -39,7 +39,7 @@ export class StorageService {
   }
 
   private save() {
-    this.cookieService.set(this.COOKIE_NAME, JSON.stringify(this.storage), this.EXPIRES_IN_DAYS)
+    this.cookieService.set(this.COOKIE_NAME, JSON.stringify(this.storage), this.EXPIRES_IN_DAYS, '/')
   }
 
   getLeftContainerWidthInPixels(): number | undefined {
