@@ -4,6 +4,10 @@ export interface MachineEditor {
   addCaret(lineNumber: number): void;
 
   removeCaret(): void;
+
+  showCompilationErrors(compilationErrors: CompilationError[]): void;
+
+  removeCompilationErrors(): void;
 }
 
 export interface MachineGUI {

@@ -66,3 +66,8 @@ code {
 .caretGlyph {
   content: url("assets/caret.svg");
 }
+
+.syntax-error {
+  background: #FA9F42;
+  opacity: 0.7;
+}

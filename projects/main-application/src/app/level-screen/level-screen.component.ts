@@ -15,7 +15,7 @@ import {MachineScreenComponent} from "./machine-screen/machine-screen.component"
 export class LevelScreenComponent implements OnInit, AfterViewInit {
   level: Level
   content: string
-  updateCookieTimeout: NodeJS.Timeout | undefined = undefined
+  updateContentTimeout: NodeJS.Timeout | undefined = undefined
   @ViewChild('machineScreen') machineScreenComponent: MachineScreenComponent;
   @ViewChild('codeEditor') codeEditorComponent: CodeEditorComponent;
 
@@ -60,12 +60,20 @@ export class LevelScreenComponent implements OnInit, AfterViewInit {
   updateContent(content: string) {
     this.content = content
 
-    // We don't want to spam the storage with new values on every keyboard press.
-    // We only save if no changes have been made for one second.
-    if (this.updateCookieTimeout != undefined) {
-      clearInterval(this.updateCookieTimeout)
+    // We want to execute two things when content changes:
+    // 1. Validate the content and show compile errors.
+    // 2. Store the content in the storage.
+    // We don't want to show errors directly after the user types something, since they are still busy typing.
+    // We also don't want to spam the storage with new values on every keyboard press.
+    // We execute both if no changes have been made for a second.
+    if (this.updateContentTimeout != undefined) {
+      clearInterval(this.updateContentTimeout)
     }
-    this.updateCookieTimeout = setTimeout(() => this.storageService.setCode(this.level.stage, this.level.id, content), 1000)
+
+    this.updateContentTimeout = setTimeout(() => {
+      this.levelScreenSharedExecutor.validate()
+      this.storageService.setCode(this.level.stage, this.level.id, content)
+    }, 1000)
   }
 
   execute() {

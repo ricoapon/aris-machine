@@ -1,7 +1,7 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MonacoVariables, MonacoVariablesFactory} from "../config/global";
 import {IRange} from "monaco-editor";
-import {MachineEditor} from "code-processing";
+import {CompilationError, MachineEditor} from "code-processing";
 
 @Component({
   selector: 'code-editor',
@@ -67,5 +67,37 @@ export class CodeEditorComponent implements MachineEditor, OnInit {
 
   onContentChange(input: string) {
     this.onContentChangeEmitter.emit(input)
+    this.removeCompilationErrors()
+  }
+
+  compilationErrorDecorations: any[] = []
+
+  showCompilationErrors(compilationErrors: CompilationError[]): void {
+    for (let compilationError of compilationErrors) {
+      const monaco = this.monacoVariables.getMonacoEditor(this.options)
+      const range: IRange = {
+        startLineNumber: compilationError.lineNr,
+        endLineNumber: compilationError.lineNr,
+        // Column index starts at 1, but char index starts at 0.
+        startColumn: compilationError.fromCharIndex + 1,
+        // The char index gives the start position of the final character. We want to mark the final character as well,
+        // so we need to add one more.
+        endColumn: compilationError.toCharIndex + 2,
+      }
+
+      this.compilationErrorDecorations.push(monaco.createDecorationsCollection([
+        {
+          range: range,
+          options: {
+            className: "syntax-error",
+            hoverMessage: {value: '**ERROR**: ' + compilationError.message},
+          }
+        },
+      ]))
+    }
+  }
+
+  removeCompilationErrors(): void {
+    this.compilationErrorDecorations.forEach(c => c.clear())
   }
 }

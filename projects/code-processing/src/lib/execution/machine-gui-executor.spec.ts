@@ -1,6 +1,6 @@
 import {Level, Stage} from "../level";
 import {MachineGUIAction} from "./machine";
-import {MachineEditor, MachineGUI} from "../public-abstractions";
+import {CompilationError, MachineEditor, MachineGUI} from "../public-abstractions";
 import {MachineGuiExecutor, MachineState} from "./machine-gui-executor";
 
 describe('MachineGuiExecutor', () => {
@@ -173,5 +173,11 @@ class MockMachineEditor implements MachineEditor {
   }
 
   removeCaret(): void {
+  }
+
+  removeCompilationErrors(): void {
+  }
+
+  showCompilationErrors(compilationErrors: CompilationError[]): void {
   }
 }

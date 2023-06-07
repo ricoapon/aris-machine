@@ -27,25 +27,46 @@ export class LevelScreenSharedExecutor {
     this.machineGuiExecutor?.updateDelayInMs(this.updateDelayInMs)
   }
 
+  validate() {
+    const code = this.determineCode()
+    const compilationErrors = this.parser.validate(this.level, code)
+    this.machineEditor.showCompilationErrors(compilationErrors)
+  }
+
+  private compile(): boolean {
+    const code = this.determineCode()
+    const compilationErrors = this.parser.validate(this.level, code)
+    if (compilationErrors.length > 0) {
+      this.machineEditor.showCompilationErrors(compilationErrors)
+      return false
+    }
+    this.machineEditor.removeCompilationErrors()
+
+    this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+    this.machineGuiExecutor.updateDelayInMs(this.updateDelayInMs)
+    return true
+  }
+
   play() {
     if (this.machineGuiExecutor == undefined || this.machineGuiExecutor.getState() == MachineState.FINISHED) {
-      const code = this.determineCode()
-      this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
-      this.machineGuiExecutor.updateDelayInMs(this.updateDelayInMs)
+      if (!this.compile()) {
+        return
+      }
     }
 
-    if (this.machineGuiExecutor.getState() == MachineState.INITIALIED || this.machineGuiExecutor.getState() == MachineState.READY) {
-      this.machineGuiExecutor.play()
+    if (this.machineGuiExecutor!.getState() == MachineState.INITIALIED || this.machineGuiExecutor!.getState() == MachineState.READY) {
+      this.machineGuiExecutor!.play()
     }
   }
 
   playSingleStep() {
     if (this.machineGuiExecutor == undefined || this.machineGuiExecutor.getState() == MachineState.FINISHED) {
-      const code = this.determineCode()
-      this.machineGuiExecutor = this.parser.parse(this.level, code).initialize(this.machineGUI, this.machineEditor)
+      if (!this.compile()) {
+        return
+      }
     }
 
-    this.machineGuiExecutor.playSingleStep()
+    this.machineGuiExecutor!.playSingleStep()
   }
 
   getMachineGuiExecutor(): MachineGuiExecutor | undefined {
