@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, OnInit, ViewChild} from '@angular/core';
 import {Level, Stage} from "code-processing";
 import {ActivatedRoute, Router} from "@angular/router";
 import {LevelFinder} from "levels";
@@ -66,5 +66,22 @@ export class LevelScreenComponent implements OnInit, AfterViewInit {
       clearInterval(this.updateCookieTimeout)
     }
     this.updateCookieTimeout = setTimeout(() => this.storageService.setCode(this.level.stage, this.level.id, content), 1000)
+  }
+
+  @HostListener('window:popstate', ['$event'])
+  onPopState(event: any) {
+    // If we press back in the browser, we don't re-initialise the entire level. If we refresh the page, it does.
+    // To mimic this, we use a trick to reload the level page.
+    // See https://stackoverflow.com/questions/40983055/how-to-reload-the-current-route-with-the-angular-2-router.
+    // We are not actually reloading the page, so we have to reset the executor though.
+    // We do some additional magic to ensure that we direct to the right page.
+    // @ts-ignore
+    const match = new RegExp(/.*levels\/(\d+)$/g).exec(event.currentTarget.location.href)
+    if (match != null) {
+      const levelId = match[1]
+      // We are indeed going back to another level screen. So we need to execute the trick.
+      this.router.navigateByUrl('/', {skipLocationChange: true})
+        .then(() => this.router.navigate(['/levels/' + levelId]))
+    }
   }
 }
