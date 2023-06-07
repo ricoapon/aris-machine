@@ -80,9 +80,7 @@ export class CodeEditorComponent implements MachineEditor, OnInit {
         endLineNumber: compilationError.lineNr,
         // Column index starts at 1, but char index starts at 0.
         startColumn: compilationError.fromCharIndex + 1,
-        // The char index gives the start position of the final character. We want to mark the final character as well,
-        // so we need to add one more.
-        endColumn: compilationError.toCharIndex + 2,
+        endColumn: compilationError.toCharIndex + 1,
       }
 
       this.compilationErrorDecorations.push(monaco.createDecorationsCollection([

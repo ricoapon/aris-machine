@@ -35,7 +35,8 @@ class ExprErrorListener implements ANTLRErrorListener<void> {
     let length = 1
     if (offendingSymbol != undefined) {
       // @ts-ignore
-      length = offendingSymbol.stop - offendingSymbol.start
+      const text = offendingSymbol.text.replace("<EOF>", "")
+      length = text.length
 
       // Length is negative if there is something missing (like forgotten bracket).
       if (length <= 0) {
@@ -193,12 +194,12 @@ export class GrammarCheckListener implements ArisListener {
 
   private addCompilationErrorIfMemorySlotIndexIsInvalid(memorySlot: TerminalNode) {
     const memorySlotIndex = +memorySlot.text
-    if (memorySlotIndex >= this.level.nrOfMemorySlots) {
+    if (isNaN(memorySlotIndex) || memorySlotIndex >= this.level.nrOfMemorySlots) {
       this.compilationErrors.push({
         lineNr: memorySlot.symbol.line,
         fromCharIndex: memorySlot.symbol.charPositionInLine,
         toCharIndex: memorySlot.symbol.charPositionInLine + memorySlot.text.length,
-        message: 'Memory slot ' + memorySlotIndex + ' does not exist'
+        message: 'Memory slot ' + memorySlot.text + ' does not exist'
       })
     }
   }

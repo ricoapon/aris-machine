@@ -90,7 +90,7 @@ describe('GrammarCheckListener', () => {
     const errors = new GrammarCheckListener().checkGrammer(DEFAULT_LEVEL, input)
 
     // Then
-    expect(errors).toEqualIgnoringMessage([{lineNr: 2, fromCharIndex: 0, toCharIndex: 2}])
+    expect(errors).toEqualIgnoringMessage([{lineNr: 2, fromCharIndex: 0, toCharIndex: 3}])
   });
 
   it('brackets should close', () => {
@@ -131,7 +131,8 @@ describe('GrammarCheckListener', () => {
       "ifzero 1 {\n}\n" +
       "ifnotzero 1 {\n}\n" +
       "ifpos 1 {\n}\n" +
-      "ifneg 1 {\n}\n"
+      "ifneg 1 {\n}\n" +
+      "move adsf to asdf\n"
 
     // When
     const errors = new GrammarCheckListener().checkGrammer(level, input)
@@ -162,6 +163,9 @@ describe('GrammarCheckListener', () => {
       {lineNr: 11, fromCharIndex: 6, toCharIndex: 7},
       // Ifneg
       {lineNr: 13, fromCharIndex: 6, toCharIndex: 7},
+      // Memory slot that are not numbers
+      {lineNr: 15, fromCharIndex: 5, toCharIndex: 9},
+      {lineNr: 15, fromCharIndex: 13, toCharIndex: 17},
     ])
   });
 
