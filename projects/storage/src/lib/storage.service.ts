@@ -10,6 +10,9 @@ type CookieStorage = {
       [key: number]: string
     }
   }
+  completedLevels: {
+    [stage: number]: number[]
+  }
 }
 
 @Injectable({
@@ -27,9 +30,11 @@ export class StorageService {
       this.storage = {
         speedUpFactor: 1,
         leftContainerWidthInPixels: undefined,
-        code: {}
+        code: {},
+        completedLevels: {},
       }
       this.storage.code[Stage.MAIN] = {}
+      this.storage.completedLevels[Stage.MAIN] = []
     }
   }
 
@@ -66,5 +71,16 @@ export class StorageService {
   setSpeedUpFactor(value: number): void {
     this.storage.speedUpFactor = value
     this.save()
+  }
+
+  isLevelCompleted(stage: Stage, levelId: number): boolean {
+    return this.storage.completedLevels[stage].indexOf(levelId) > -1
+  }
+
+  completeLevel(stage: Stage, levelId: number): void {
+    if (!this.isLevelCompleted(stage, levelId)) {
+      this.storage.completedLevels[stage].push(levelId)
+      this.save()
+    }
   }
 }
