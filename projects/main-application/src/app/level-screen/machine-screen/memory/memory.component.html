@@ -1,8 +1,0 @@
-<div class="memory-container">
-  <div class="memory-block-section" [style.grid-template-columns]="'repeat(' + nrOfGridColumns + ', 100px)'">
-    <div *ngFor="let memorySlot of memorySlots; let i = index" class="memory-slot">
-      <div *ngIf="memorySlot != undefined" class="memory-slot-content"> {{ memorySlot }}</div>
-      <div class="memory-slot-identifier">{{ i }}</div>
-    </div>
-  </div>
-</div>
