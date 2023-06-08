@@ -14,7 +14,7 @@ jobs:
       - name: Install NPM and build
         run: |
           npm ci
-          npm run build:githubpages
+          npm run build:github-pages
 
       - name: Test
         run: npm run test
