@@ -1,0 +1,38 @@
+.pc {
+  height: 100%;
+}
+
+.mobile {
+  display: none;
+
+  height: 100%;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.mobile > .container {
+  width: 400px;
+  height: 380px;
+  background-color: black;
+  border-radius: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}
+.padded {
+  margin: 0 15px;
+}
+
+
+@media (max-width: 1023px) or (max-height: 768px) {
+  .pc {
+    display: none;
+  }
+
+  .mobile {
+    display: flex !important;
+  }
+}
