@@ -5,8 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build code-processing && ng build code-editor && ng build storage && ng build levels && ng build main-application",
+    "build:github-pages": "npm run build && cp dist/main-application/index.html dist/main-application/404.html && touch dist/main-application/.nojekyll",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test code-processing --watch=false && ng test code-editor --watch=false && ng test storage --watch=false && ng test levels --watch=false && ng test main-application --watch=false"
+    "test": "ng test code-processing --no-watch --no-progress --browsers=ChromeHeadlessCI && ng test levels --no-watch --no-progress --browsers=ChromeHeadlessCI"
   },
   "private": true,
   "dependencies": {

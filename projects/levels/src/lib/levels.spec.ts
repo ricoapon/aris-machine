@@ -1,5 +1,6 @@
 import {LevelFinder} from "./level-finder";
 import {
+  CompilationError,
   Level,
   MachineEditor,
   MachineGUI,
@@ -245,5 +246,11 @@ class MockMachineEditor implements MachineEditor {
   }
 
   removeCaret(): void {
+  }
+
+  removeCompilationErrors(): void {
+  }
+
+  showCompilationErrors(compilationErrors: CompilationError[]): void {
   }
 }
