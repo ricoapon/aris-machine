@@ -1,0 +1,40 @@
+<!DOCTYPE html><html lang="en"><head><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <meta charset="utf-8">
+  <title>MainApplication</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+
+
+  <style type="text/css">@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu72xKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0460-052F, U+1C80-1C88, U+20B4, U+2DE0-2DFF, U+A640-A69F, U+FE2E-FE2F;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu5mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7mxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+1F00-1FFF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0370-03FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7WxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0102-0103, U+0110-0111, U+0128-0129, U+0168-0169, U+01A0-01A1, U+01AF-01B0, U+0300-0301, U+0303-0304, U+0308-0309, U+0323, U+0329, U+1EA0-1EF9, U+20AB;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu7GxKKTU1Kvnz.woff2) format('woff2');unicode-range:U+0100-02AF, U+0304, U+0308, U+0329, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;}@font-face{font-family:'Roboto';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxKKTU1Kg.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+
+  <!--
+  I choose for Koulen for headers, as it looks more like a monospace font. This fits the game nicely.
+  Other alternatives I thought were also pretty good (all from Google Fonts):
+  * Bebas Neue (just as good a choice, liked it very much)
+  * Luckiest Guy (style is nice, but the letters are too large? Didn't fit well on screens)
+  * Bangers (very good for the home screen, but not so much for documentation headers and such)
+  * Bungee (matches the style very well, but a bit too much spacing around the letters)
+  * Tilt Warp (not all-caps by default, but a good fit overall)
+  -->
+  <style type="text/css">@font-face{font-family:'Koulen';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/koulen/v25/AMOQz46as3KIBPemjno8sOUcU0Cz.woff2) format('woff2');unicode-range:U+1780-17FF, U+19E0-19FF, U+200C, U+25CC;}@font-face{font-family:'Koulen';font-style:normal;font-weight:400;src:url(https://fonts.gstatic.com/s/koulen/v25/AMOQz46as3KIBPemhXo8sOUcUw.woff2) format('woff2');unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}</style>
+
+  <!-- Required to make antlr stuff work. -->
+  <!--suppress ES6ConvertVarToLetConst -->
+  <script>
+    var global = global || window;
+    var Buffer = Buffer || [];
+    var process = process || {
+      env: { DEBUG: undefined },
+      version: []
+    };
+  </script>
+
+<style>:root{--blue:#18BEFD;--red:#C5366C}html,body{margin:0;padding:0;height:100%;font-family:Roboto,serif;background-color:#000}body{background-image:url(background.f6d21382844ff866.png);background-position:center;background-repeat:no-repeat;background-size:2000px}</style><link rel="stylesheet" href="styles.e1c0d2565e5a2d10.css" media="print" onload="this.media='all'"><noscript><link rel="stylesheet" href="styles.e1c0d2565e5a2d10.css"></noscript></head>
+<body class="h-100">
+  <app-root></app-root>
+<script src="runtime.bc959c7afdf93ae2.js" type="module"></script><script src="polyfills.ba7c1390d1876a1a.js" type="module"></script><script src="main.8a7e5652fe83d830.js" type="module"></script>
+
+</body></html>

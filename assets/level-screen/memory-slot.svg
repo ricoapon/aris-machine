@@ -1,0 +1,61 @@
+<svg viewBox="0 0 100 100" width="100px" height="100px" xmlns="http://www.w3.org/2000/svg">
+
+  <defs>
+    <linearGradient id="gradientLeftBlueRightRed" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#18BEFD"></stop>
+      <stop offset="100%" stop-color="#C5366C"></stop>
+    </linearGradient>
+    <linearGradient id="gradientLeftRedRightBlue" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#C5366C"></stop>
+      <stop offset="100%" stop-color="#18BEFD"></stop>
+    </linearGradient>
+    <linearGradient id="gradientTopRedBottomBlue" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#C5366C"></stop>
+      <stop offset="100%" stop-color="#18BEFD"></stop>
+    </linearGradient>
+    <linearGradient id="gradientTopBlueBottomRed" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#18BEFD"></stop>
+      <stop offset="100%" stop-color="#C5366C"></stop>
+    </linearGradient>
+
+
+    <style type="text/css">
+      .blue {
+        stroke: #18BEFD;
+      }
+      .red {
+        stroke: #C5366C;
+      }
+    </style>
+  </defs>
+
+  <!-- Outer square with 45 degree corners -->
+  <path d="M10 20 L20 10 L90 10 L90 80 L80 90 L10 90 L10 30Z" stroke-width="2" class="red" fill="none"></path>
+
+  <!-- Inner square with rounded corners -->
+  <rect height="40" width="40" x="30" y="30" stroke-width="2" class="blue" fill="none" rx="4"></rect>
+
+  <!-- The left lines -->
+  <line x1="0" y1="35.1" x2="10" y2="35" stroke-width="2" stroke="url(#gradientLeftBlueRightRed)"></line>
+  <line x1="0" y1="45.1" x2="10" y2="45" stroke-width="2" stroke="url(#gradientLeftBlueRightRed)"></line>
+  <line x1="0" y1="55.1" x2="10" y2="55" stroke-width="2" stroke="url(#gradientLeftBlueRightRed)"></line>
+  <line x1="0" y1="65.1" x2="10" y2="65" stroke-width="2" stroke="url(#gradientLeftBlueRightRed)"></line>
+
+  <!-- The right lines -->
+  <line x1="90" y1="35.1" x2="100" y2="35" stroke-width="2" stroke="url(#gradientLeftRedRightBlue)"></line>
+  <line x1="90" y1="45.1" x2="100" y2="45" stroke-width="2" stroke="url(#gradientLeftRedRightBlue)"></line>
+  <line x1="90" y1="55.1" x2="100" y2="55" stroke-width="2" stroke="url(#gradientLeftRedRightBlue)"></line>
+  <line x1="90" y1="65.1" x2="100" y2="65" stroke-width="2" stroke="url(#gradientLeftRedRightBlue)"></line>
+
+  <!-- The bottom lines -->
+  <line x1="35.1" y1="90" x2="35" y2="100" stroke-width="2" stroke="url(#gradientTopRedBottomBlue)"></line>
+  <line x1="45.1" y1="90" x2="45" y2="100" stroke-width="2" stroke="url(#gradientTopRedBottomBlue)"></line>
+  <line x1="55.1" y1="90" x2="55" y2="100" stroke-width="2" stroke="url(#gradientTopRedBottomBlue)"></line>
+  <line x1="65.1" y1="90" x2="65" y2="100" stroke-width="2" stroke="url(#gradientTopRedBottomBlue)"></line>
+
+  <!-- The top lines -->
+  <line x1="35.1" y1="0" x2="35" y2="10" stroke-width="2" stroke="url(#gradientTopBlueBottomRed)"></line>
+  <line x1="45.1" y1="0" x2="45" y2="10" stroke-width="2" stroke="url(#gradientTopBlueBottomRed)"></line>
+  <line x1="55.1" y1="0" x2="55" y2="10" stroke-width="2" stroke="url(#gradientTopBlueBottomRed)"></line>
+  <line x1="65.1" y1="0" x2="65" y2="10" stroke-width="2" stroke="url(#gradientTopBlueBottomRed)"></line>
+</svg>
