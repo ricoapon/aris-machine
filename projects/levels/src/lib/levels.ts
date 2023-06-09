@@ -8,10 +8,13 @@ const MAIN_LEVELS: Level[] = [
     input: [9, 6, 4],
     expectedOut: [9, 6, 4],
     nrOfMemorySlots: 1,
-    description: "Write commands in the editor below to build a program. Your task is to use the numbers (the purple boxes) in the input to " +
+    description: "Write commands in the editor below to build a program. Your task is to use the values (the boxes with numbers in them) in the input to " +
       "get the expected output. In this first simple program, you can move the input to the output without modifications.<br>" +
       "<br>" +
-      "You can use the command <code>move input to output</code>."
+      "You can use the command <code>move input to output</code>.<br>" +
+      "<br>" +
+      "Note that your code is executed once in total. This means that if you need to move the input to the output three " +
+      "times, you need to insert the command THREE times."
   },
   {
     stage: Stage.MAIN,
