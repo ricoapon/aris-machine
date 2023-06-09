@@ -21,7 +21,7 @@
             ],
             "tsConfig": "projects/main-application/tsconfig.app.json",
             "assets": [
-              "projects/main-application/src/favicon.ico",
+              "projects/main-application/src/favicon.png",
               "projects/main-application/src/assets",
               {
                 "glob": "**/*",
@@ -91,7 +91,7 @@
             ],
             "tsConfig": "projects/main-application/tsconfig.spec.json",
             "assets": [
-              "projects/main-application/src/favicon.ico",
+              "projects/main-application/src/favicon.png",
               "projects/main-application/src/assets"
             ],
             "styles": [
