@@ -84,7 +84,7 @@ describe('Machine', () => {
       const machine = new Machine(level)
       machine.moveInputToMemorySlot(0, IGNORE_EDITOR_LINE)
       when(machine)
-      expect(machine.createMachineResult().machineGUIActions.pop()).toEqual({error: 'Output is not correct'})
+      expect(machine.createMachineResult().machineGUIActions.pop()).toEqual({error: 'Output is not correct! Expected output was 0, but you tried to add 1 to the output.'})
     }
 
     test((machine) => machine.moveInputToOutput(IGNORE_EDITOR_LINE))

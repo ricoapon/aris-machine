@@ -80,7 +80,7 @@ export class Machine {
 
     const expectedOutNumber = this.expectedOut.shift()
     if (expectedOutNumber != this.input[0]) {
-      this.error('Output is not correct')
+      this.error('Output is not correct! Expected output was ' + expectedOutNumber + ', but you tried to add ' + this.input[0] + ' to the output.')
       return
     }
 
@@ -121,7 +121,7 @@ export class Machine {
 
     const expectedOutNumber = this.expectedOut.shift()
     if (expectedOutNumber != this.memorySlots[i]) {
-      this.error('Output is not correct')
+      this.error('Output is not correct! Expected output was ' + expectedOutNumber + ', but you tried to add ' + this.memorySlots[i] + ' to the output.')
       return
     }
 
@@ -192,7 +192,7 @@ export class Machine {
     const numberToCopyToOutput = this.memorySlots[from]
     const expectedOutNumber = this.expectedOut.shift()
     if (expectedOutNumber != numberToCopyToOutput) {
-      this.error('Output is not correct')
+      this.error('Output is not correct! Expected output was ' + expectedOutNumber + ', but you tried to add ' + numberToCopyToOutput + ' to the output.')
       return
     }
 
