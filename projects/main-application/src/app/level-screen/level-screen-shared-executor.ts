@@ -38,6 +38,7 @@ export class LevelScreenSharedExecutor {
     const compilationErrors = this.parser.validate(this.level, code)
     if (compilationErrors.length > 0) {
       this.machineEditor.showCompilationErrors(compilationErrors)
+      alert('You cannot start your program, because you have compilation errors! Hover over the yellow highlighted parts to see the error message.')
       return false
     }
     this.machineEditor.removeCompilationErrors()
