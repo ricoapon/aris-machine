@@ -84,6 +84,8 @@ export class MachineScreenComponent implements MachineGUI {
 
   handleError(message: string): void {
     alert(message)
+    // There should only be one error in total. Clearing ensures that you can click play again.
+    this.levelScreenSharedExecutor.stopAndClear()
   }
 
   handleFinished(): void {
