@@ -77,7 +77,7 @@ const MAIN_LEVELS: Level[] = [
     nrOfMemorySlots: 3,
     description: "Triple the input value and output the result.<br>"
       + "<br>" +
-        "If you are interested in how to make use useful tricks with the text editor, go to this page: " +
+        "If you are interested in useful tricks that are possible in the code editor, go to this page: " +
         "<a href='/docs/editor' target='_blank'>Monaco editor</a>."
   },
   {
