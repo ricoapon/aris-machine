@@ -277,7 +277,7 @@ describe('Machine', () => {
 
         // Then
         expect(machine.createMachineResult().machineGUIActions).toEqual([
-          {error: 'More output is expected!'}
+          {error: 'Your program stopped executing, but more output is still expected. Value 1 is still expected.'}
         ])
       })
       it('finishes if all values are delivered', () => {

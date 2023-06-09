@@ -250,7 +250,8 @@ export class Machine {
     // machine is running.
     if (this.isRunning()) {
       if (this.expectedOut.length != 0) {
-        this.error('More output is expected!')
+        this.error('Your program stopped executing, but more output is still expected. Value ' +
+          this.expectedOut[0] + ' is still expected.')
       } else {
         this.finished()
       }
