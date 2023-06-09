@@ -125,9 +125,11 @@ export class MachineGuiExecutor {
     if (action.shiftInput) {
       this.machineGUI.handleShiftInput()
     }
-    if (action.addValueToOutput) {
+
+    if (action.addValueToOutput != undefined) {
       this.machineGUI.handleAddOutput(action.addValueToOutput)
     }
+
     if (action.memory) {
       for (const memoryAction of action.memory) {
         this.machineGUI.handleSetMemory(memoryAction.index, memoryAction.value)

@@ -84,7 +84,7 @@ describe('MachineGuiExecutor', () => {
     const machineGUIExecutor = new MachineGuiExecutor(machineGUI, machineEditor, DEFAULT_LEVEL, {
       machineGUIActions: [
         {editorLine: 1, shiftInput: true},
-        {editorLine: 2, addValueToOutput: 1},
+        {editorLine: 2, addValueToOutput: 0},
         {editorLine: 3, memory: [{index: 1, value: 2}, {index: 0, value: 3}]},
         {editorLine: 4, shiftInput: true, addValueToOutput: 2, memory: [{index: 3, value: 4}]},
         {error: 'Some error'},
@@ -101,7 +101,7 @@ describe('MachineGuiExecutor', () => {
     expect(machineEditor.addCaret).toHaveBeenCalledWith(1)
 
     machineGUIExecutor.playSingleStep()
-    expect(machineGUI.handleAddOutput).toHaveBeenCalledWith(1)
+    expect(machineGUI.handleAddOutput).toHaveBeenCalledWith(0)
     expect(machineEditor.removeCaret).toHaveBeenCalledTimes(2)
     expect(machineEditor.addCaret).toHaveBeenCalledWith(2)
 
