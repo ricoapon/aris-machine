@@ -36,7 +36,7 @@ const MAIN_LEVELS: Level[] = [
     expectedOut: [5, 4, 7, 1, 9, 8],
     nrOfMemorySlots: 3,
     description: "If every level was just moving the input to the output, this game would be too simple! Let's switch it up: " +
-      "you have to grab the first TWO numbers from the input and move them to the output in REVERSE order.<br>" +
+      "For each TWO numbers from the input, move them to the output in REVERSE order.<br>" +
       "<br>" +
       "The tiles you can see in the middle are called 'memory slots'. The number you can see on the memory slot is called " +
       "index. You can store numbers in memory slots. You should use them.<br>" +
