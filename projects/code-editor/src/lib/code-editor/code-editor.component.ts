@@ -73,6 +73,8 @@ export class CodeEditorComponent implements MachineEditor, OnInit {
   compilationErrorDecorations: any[] = []
 
   showCompilationErrors(compilationErrors: CompilationError[]): void {
+    this.removeCompilationErrors()
+
     for (let compilationError of compilationErrors) {
       const monaco = this.monacoVariables.getMonacoEditor(this.options)
       const range: IRange = {
