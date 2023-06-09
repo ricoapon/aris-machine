@@ -10,6 +10,8 @@ describe('MachineGuiExecutor', () => {
     title: '',
     input: [],
     expectedOut: [],
+    exampleInput: [],
+    exampleOutput: [],
     nrOfMemorySlots: 100,
     description: ''
   }

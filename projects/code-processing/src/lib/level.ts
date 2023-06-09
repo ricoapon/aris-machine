@@ -10,7 +10,9 @@ export type Level = {
   id: number
   title: string
   input: number[]
-  expectedOut: number[]
+  expectedOut: number[],
+  exampleInput: number[],
+  exampleOutput: number[],
   nrOfMemorySlots: number
   description: string
 }

@@ -20,3 +20,27 @@
   flex-grow: 1;
   padding: 1px;
 }
+
+.example-container > p {
+  padding: 0;
+}
+
+.example-list {
+  display: inline-flex;
+}
+.example-value {
+  margin-right: 5px;
+  border: 2px black solid;
+  width: 25px;
+  height: 25px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.example-value.input {
+  background-color: var(--blue);
+}
+.example-value.output {
+  background-color: var(--red);
+}

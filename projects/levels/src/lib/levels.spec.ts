@@ -21,6 +21,12 @@ describe('Main levels', () => {
     const creator: MachineGuiExecutorCreator = parser.parse(level, code)
     const executor: MachineGuiExecutor = creator.initialize(new MockMachineGUI(), new MockMachineEditor())
     expect(executor.getFinishedWithError()).toBeFalse()
+
+    // Also check that the example values are correct.
+    const levelWithExampleValues: Level = {...level, input: level.exampleInput, expectedOut: level.exampleOutput}
+    const creatorWithExampleValues: MachineGuiExecutorCreator = parser.parse(levelWithExampleValues, code)
+    const executorWithExampleValues: MachineGuiExecutor = creatorWithExampleValues.initialize(new MockMachineGUI(), new MockMachineEditor())
+    expect(executorWithExampleValues.getFinishedWithError()).toBeFalse()
   }
 
   it('1', () => {

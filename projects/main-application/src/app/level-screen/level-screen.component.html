@@ -9,6 +9,16 @@
 
       </div>
       <p [innerHTML]="level.description"></p>
+      <div class="example-container">
+        <p>Example input:</p>
+        <div class="example-list input">
+          <div class="example-value input" *ngFor="let i of level.exampleInput">{{ i }}</div>
+        </div>
+        <p>Example output:</p>
+        <div class="example-list output" style="display: inline-flex">
+          <div class="example-value output" *ngFor="let i of level.exampleOutput">{{ i }}</div>
+        </div>
+      </div>
     </div>
     <div class="editor">
       <code-editor [initialContent]="content" (onContentChangeEmitter)="updateContent($event)" (onExecuteEmitter)="execute()"  #codeEditor></code-editor>
