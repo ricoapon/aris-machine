@@ -56,7 +56,7 @@ export class MachineScreenComponent implements MachineGUI {
 
   isLastLevel(): boolean {
     const currentLevelId = this.levelScreenSharedExecutor.level.id
-    return this.levelFinder.getLevels(Stage.MAIN).length <= currentLevelId + 1
+    return this.levelFinder.getLevels(Stage.MAIN).length <= currentLevelId
   }
 
   dialogBack() {
