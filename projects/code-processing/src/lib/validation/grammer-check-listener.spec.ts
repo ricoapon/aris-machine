@@ -186,4 +186,35 @@ describe('GrammarCheckListener', () => {
       {lineNr: 2, fromCharIndex: 0, toCharIndex: 8},
     ])
   })
+
+  describe('play testing cases', () => {
+    it('loop without brackets fails', () => {
+      // Given
+      const input =
+        "loop move input to output\n"
+
+      // When
+      const errors = new GrammarCheckListener().checkGrammer(DEFAULT_LEVEL, input)
+
+      // Then
+      expect(errors).toEqualIgnoringMessage([
+        {lineNr: 1, fromCharIndex: 5, toCharIndex: 9},
+      ])
+    })
+
+
+    it('incr without input fails', () => {
+      // Given
+      const input =
+        "incr\n"
+
+      // When
+      const errors = new GrammarCheckListener().checkGrammer(DEFAULT_LEVEL, input)
+
+      // Then
+      expect(errors).toEqualIgnoringMessage([
+        {lineNr: 1, fromCharIndex: 0, toCharIndex: 1000},
+      ])
+    })
+  })
 });

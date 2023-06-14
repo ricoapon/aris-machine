@@ -35,6 +35,20 @@ class ExprErrorListener implements ANTLRErrorListener<void> {
     let length = 1
     if (offendingSymbol != undefined) {
       // @ts-ignore
+      const trimmedText = (offendingSymbol.text + "").trim()
+      if (trimmedText.length== 0) {
+        // The error is on some whitespace, which could be a newline. To ensure we can actually see the error, we just mark the entire line.
+        this.compilationErrors.push({
+          lineNr: line,
+          fromCharIndex: 0,
+          toCharIndex: 1000,
+          message: msg
+        })
+        return
+      }
+
+
+      // @ts-ignore
       const text = offendingSymbol.text.replace("<EOF>", "")
       length = text.length
 
@@ -163,13 +177,18 @@ export class GrammarCheckListener implements ArisListener {
 
   enterLoop(ctx: LoopContext): void {
     this.loopDepth++
-    if (ctx.lines().line().length == 0) {
-      this.compilationErrors.push({
-        lineNr: ctx.LOOP().symbol.line,
-        fromCharIndex: ctx.LOOP().symbol.charPositionInLine,
-        toCharIndex: ctx.LOOP().symbol.charPositionInLine + ctx.LOOP().symbol.text!.length,
-        message: 'A loop must have a body'
-      })
+    try {
+      if (ctx.lines().line().length == 0) {
+        this.compilationErrors.push({
+          lineNr: ctx.LOOP().symbol.line,
+          fromCharIndex: ctx.LOOP().symbol.charPositionInLine,
+          toCharIndex: ctx.LOOP().symbol.charPositionInLine + ctx.LOOP().symbol.text!.length,
+          message: 'A loop must have a body'
+        })
+      }
+    } catch (e) {
+      // The ctx.lines() can give an error if the loop has no curly braces. We can ignore this, since a compilation error
+      // from antlr itself will already be logged. We just don't want the code to break, so we catch and ignore.
     }
   }
 
@@ -193,6 +212,11 @@ export class GrammarCheckListener implements ArisListener {
   }
 
   private addCompilationErrorIfMemorySlotIndexIsInvalid(memorySlot: TerminalNode) {
+    if (memorySlot.text == "<missing MEMORY_SLOT>") {
+      // We have a compilation error already, we don't need to add a custom error to it.
+      return
+    }
+
     const memorySlotIndex = +memorySlot.text
     if (isNaN(memorySlotIndex) || memorySlotIndex >= this.level.nrOfMemorySlots) {
       this.compilationErrors.push({
