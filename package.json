@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-in-codespace": "ng serve --host=0.0.0.0 --disable-host-check",
     "build": "ng build code-processing && ng build code-editor && ng build storage && ng build levels && ng build main-application",
     "build:github-pages": "npm run build && cp dist/main-application/index.html dist/main-application/404.html && touch dist/main-application/.nojekyll",
     "watch": "ng build --watch --configuration development",

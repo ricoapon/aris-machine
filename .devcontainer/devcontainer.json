@@ -4,8 +4,8 @@
 	"name": "Node.js & TypeScript",
 	"image": "mcr.microsoft.com/devcontainers/typescript-node",
 	"features": {
-		"ghcr.io/devcontainers-contrib/features/angular-cli:1": {},
-		"ghcr.io/devcontainers-contrib/features/typescript:1": {}
+		"ghcr.io/devcontainers-contrib/features/angular-cli:2.0.9": {},
+		"ghcr.io/devcontainers-contrib/features/typescript:2.0.9": {}
 	},
 	"customizations": {
 		"vscode": {
@@ -15,7 +15,7 @@
 			]
 		}
 	},
-	"onCreateCommand": "npm install",
+	"onCreateCommand": "npm install && ng analytics disable",
 	"forwardPorts": [ 4200 ]
 
 	// Features to add to the dev container. More info: https://containers.dev/features.
