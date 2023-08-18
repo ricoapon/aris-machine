@@ -50,4 +50,20 @@ export class ControlPanelComponent {
     // Start of slider means 1000ms delay and end of slider means 10ms delay.
     this.levelScreenSharedExecutor.setUpdateDelayInMs(1000 / factor)
   }
+
+  nextSpeedUpFactor() {
+    if (this.speedUpFactor == 1) {
+      this.speedUpFactor = 4
+    } else if (this.speedUpFactor == 4) {
+      this.speedUpFactor = 16
+    } else if (this.speedUpFactor == 16) {
+      this.speedUpFactor = 32
+    } else if (this.speedUpFactor == 32) {
+      this.speedUpFactor = 1
+    }
+
+    this.storageService.setSpeedUpFactor(this.speedUpFactor)
+    // Start of slider means 1000ms delay and end of slider means 10ms delay.
+    this.levelScreenSharedExecutor.setUpdateDelayInMs(1000 / this.speedUpFactor)
+  }
 }

@@ -4,11 +4,6 @@
     <button [disabled]="!showStart()" class="btn-start" (click)="start()"><i class="bi bi-play-fill"></i></button>
     <button [disabled]="false" class="btn-enter" (click)="singleStep()"><i class="bi bi-arrow-return-right"></i></button>
 
-    <div class="speed-control">
-      <button (click)="updateSpeedupFactor(1)"  [className]="speedUpFactor == 1 ? 'selected' : ''">1x</button>
-      <button (click)="updateSpeedupFactor(4)"  [className]="speedUpFactor == 4 ? 'selected' : ''">4x</button>
-      <button (click)="updateSpeedupFactor(16)" [className]="speedUpFactor == 16 ? 'selected' : ''">16x</button>
-      <button (click)="updateSpeedupFactor(32)" [className]="speedUpFactor == 32 ? 'selected' : ''">32x</button>
-    </div>
+    <button (click)="nextSpeedUpFactor()" class="btn-fast-forward"><i class="bi bi-fast-forward-fill"></i><p>{{ speedUpFactor }}x</p></button>
   </div>
 </div>

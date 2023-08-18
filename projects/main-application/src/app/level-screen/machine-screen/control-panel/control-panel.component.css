@@ -33,24 +33,11 @@ button:disabled {
 .btn-enter {
   background-color: #00AAE0;
 }
-
-.speed-control {
-  width: 70px;
-  height: 70px;
-  display: flex;
-  flex-wrap: wrap;
+.btn-fast-forward {
+  background-color: #00AAE0;
 }
-
-.speed-control > button {
-  background-color: #C5366C;
-  font-size: 12px;
+.btn-fast-forward p {
   padding: 0;
-  color: black;
-  width: 35px;
-  height: 35px;
-}
-
-.speed-control > button.selected {
-  background-color: #18BEFD;
-  color: white;
+  margin: 0;
+  font-size: 16px;
 }
