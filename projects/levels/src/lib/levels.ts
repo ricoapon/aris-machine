@@ -30,7 +30,10 @@ const MAIN_LEVELS: Level[] = [
     description: "Writing out every line by hand is very tedious work. We can do that far easier: use a loop! Try and move " +
       "all the input numbers to the output with only four lines of code!<br>" +
       "<br>" +
-      "You can use the command <code>loop { ... }</code> to loop."
+      "You can use the <code>loop</code> command like this:<br>" +
+      "<pre>loop {\n" +
+      "  ...\n" + 
+      "}</pre>"
   },
   {
     stage: Stage.MAIN,
@@ -60,7 +63,7 @@ const MAIN_LEVELS: Level[] = [
     exampleInput: [1, 2, 3, 4],
     exampleOutput: [3, 7],
     nrOfMemorySlots: 3,
-    description: "It is now time to modify the numbers using the power of addition! For each two things in the input, add " +
+    description: "It is now time to modify the numbers using the power of addition! For each two numbers in the input, add " +
       "them together and put the result in the output.<br>" +
       "<br>" +
       "You can use the command <code>add X to Y</code> where X and Y must be memory slots."
@@ -123,8 +126,10 @@ const MAIN_LEVELS: Level[] = [
     exampleInput: [0, 1, 2],
     exampleOutput: [0],
     nrOfMemorySlots: 3,
-    description: "Only move the 0 values to the output. You can use the command <code>ifzero [memory-slot | input] { ... }</code> " +
+    description: "Only move the 0 values to the output. You can use the command <code>ifzero</code> " +
       "to only execute commands if the memory slot or input has the value 0 in it.<br>" +
+      "<pre>ifzero input {\n  ...\n}</pre><br>"+
+      "Note that instead of <code>input</code>, you can also use memory slots.<br>" +
       "<br>" +
       "The function <code>ifnotzero</code> also exists, which does the opposite: executes code only if the value is not equal to 0."
   },
@@ -140,7 +145,9 @@ const MAIN_LEVELS: Level[] = [
     description: "If the input is positive, add 1 and output that. If the input is negative, subtract 1 and output that. " +
       "Ignore any input that is 0.<br>" +
       "<br>" +
-      "You can use the command <code>ifpos [memory-slot | input] { ... }</code> or similarly <code>ifneg</code>.<br>" +
+      "You can use the command <code>ifpos</code> (or similarly <code>ifneg</code>) like this:<br>" +
+      "<pre>ifpos input {\n  ...\n}</pre><br>"+
+      "Note that instead of <code>input</code>, you can also use memory slots.<br>" +
       "<br>" +
       "You can use the command <code>incr [memory-slot]</code> to increase the value of a memory slot by 1. Or you can use" +
       "<code>decr</code> to decreate the value by 1."
@@ -151,11 +158,12 @@ const MAIN_LEVELS: Level[] = [
     title: 'I wanted to make a math joke, but I decided to subtract it.',
     input: [1, -5, 6, 8, 0, 9, 2, -6, 5, -5, 7, 8],
     expectedOut: [-6, -2, 9, 8, -10, -1],
-    exampleInput: [1, 2, 3, 4],
-    exampleOutput: [1, -1],
+    exampleInput: [4, 10, 1, 6],
+    exampleOutput: [6, -5],
     nrOfMemorySlots: 3,
-    description: "For each two things in the input, first subtract the 1st from the 2nd and put the result in the output. " +
-      "And then, subtract the 2nd from the 1st and put the result in the output. Repeat.<br>" +
+    description: "This exercise repeats processing numbers in blocks of four. For the first two numbers in the input, subtract the 1st from the 2nd and " +
+      "put the result in the output. " +
+      "And then for the next two numbers, subtract the 2nd from the 1st and put the result in the output. Repeat.<br>" +
       "<br>" +
       "You can use the command <code>sub [memory-slot] from [memory-slot]</code> to subtract the first memory slot from the" +
       "second. Alternatively, you can use <code>add [memory-slot] to [memory-slot]</code>."
@@ -169,7 +177,7 @@ const MAIN_LEVELS: Level[] = [
     exampleInput: [1, 2, 3, 3],
     exampleOutput: [3],
     nrOfMemorySlots: 3,
-    description: "For each two elements in the input: if they are equal, put one of them in the output. Discard non-equal pairs. Repeat!"
+    description: "For each two numbers in the input: if they are equal, put one of them in the output. Discard non-equal pairs. Repeat!"
   },
   {
     stage: Stage.MAIN,
@@ -180,7 +188,7 @@ const MAIN_LEVELS: Level[] = [
     exampleInput: [1, 2, 3, 3],
     exampleOutput: [2, 3],
     nrOfMemorySlots: 3,
-    description: "For each two elements in the input: put the bigger of the two in the output, If they are equal, just pick either one. Repeat!"
+    description: "For each two numbers in the input: put the bigger of the two in the output, If they are equal, just pick either one. Repeat!"
   },
   {
     stage: Stage.MAIN,
